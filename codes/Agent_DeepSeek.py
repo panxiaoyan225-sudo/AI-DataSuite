@@ -1,8 +1,8 @@
 import yfinance as yf
-import ollama  # pip install ollama
+from ollama import Client  # <-- 1. Import Client directly
 
 def get_stock_news_and_impact(ticker):
-    # 1. Fetch news from Yahoo Finance
+    # Fetch news from Yahoo Finance
     print(f"--- Fetching news for {ticker} ---")
     stock = yf.Ticker(ticker)
     news_list = stock.news[:5]
@@ -15,8 +15,7 @@ def get_stock_news_and_impact(ticker):
         title = item.get('title') or item.get('headline') or "No Title"
         headlines += f"- {title}\n"
 
-    # 2. Call your local DeepSeek-R1 model
-    print(f"--- Local DeepSeek-R1 is thinking... ---")
+    print(f"--- Local Model is thinking... ---")
     
     prompt = f"""
     Analyze these headlines for {ticker} and explain the price impact. 
@@ -26,9 +25,11 @@ def get_stock_news_and_impact(ticker):
     {headlines}
     """
 
-    # This talks to the 'ollama run deepseek-r1:7b' you just started
-    response = ollama.chat(
-        model='deepseek-r1:7b',
+    # 2. Point directly to the IP address of the background service that is holding that port
+    client = Client(host='http://127.0.0.1:11434')
+
+    response = client.chat(
+        model='qwen2.5:3b',
         messages=[{'role': 'user', 'content': prompt}]
     )
 
