@@ -7,7 +7,7 @@ This modular AI suite orchestrates autonomous agents via **OpenClaw**, utilizes 
 ## 🚀 Key Modules
 
 ### 🤖 Autonomous AI Agents (OpenClaw)
-[🚀 View Autonomous Multi-Agent Interactive Infographic](https://panxiaoyan225-sudo.github.io/panxiaoyan225-sudo/agents_infographic.html)
+ [📊 View Autonomous Multi-Agent ](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Openclaw.html)
 *   **Autonomous Multi-Agent Framework**: An objective-driven system utilizing **OpenClaw** where independent agents (**Mei, John, Sam**) execute complex tasks through collaborative or independent workflows.
 *   **Isolated Workspaces**: Ensures data security by running each agent within a dedicated local file-system environment.
 *   **API Gateway Orchestration**: Centralized routing via **OpenRouter** and **Ollama**, transitioning from simple chatbots to goal-oriented autonomous systems.
