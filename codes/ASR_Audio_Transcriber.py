@@ -2,6 +2,8 @@
 # It can transcribe spoken language in audio files to text, and supports multiple languages.
 # Below, we import the 'whisper' library to access its transcription models and functions.
 #import TextToAudio
+# Install OpenAI Whisper with: pip install openai-whisper
+# (Do NOT use `pip install whisper` — that is a different, unrelated package.)
 import whisper
 import os
 from dotenv import load_dotenv, find_dotenv

@@ -7,7 +7,7 @@ from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_ollama import OllamaEmbeddings, ChatOllama
-from langchain.chains import RetrievalQA
+from langchain_classic.chains import RetrievalQA
 
 # 1. Load Documents
 # Scans your local directory for .txt files.
@@ -43,6 +43,6 @@ qa_chain = RetrievalQA.from_chain_type(
 
 # 6. Query the System
 query = "What are the main functions of the OpenClaw framework?"
-response = qa_chain.invoke(query)
+response = qa_chain.invoke({"query": query})
 
 print(f"Answer: {response['result']}")

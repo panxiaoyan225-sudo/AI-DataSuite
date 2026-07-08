@@ -15,7 +15,8 @@ classifier = pipeline("sentiment-analysis")
 comments = [
     "I absolutely love this new update, it's so fast!",
     "This is the worst experience I've ever had with an app.",
-    "It's okay, but the colors are a bit strange."
+    "It's okay, but the colors are a bit strange.",
+    "your cat is ugly"
 ]
 
 # The sentiment classifier predicts the emotional tone for each comment.
