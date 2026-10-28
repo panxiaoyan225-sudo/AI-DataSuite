@@ -1,10 +1,14 @@
 # AI-DataSuite: A Comprehensive AI & Data Suite
 
-This modular AI suite orchestrates autonomous agents via **OpenClaw**, utilizes **embedding** models for semantic intelligence, and leverages **ChromaDB** for persistent, local vector storage and **LangChain** for fully offline Retrieval-Augmented Generation (RAG).
+This modular AI suite presents reliable Human–AI Operating System, orchestrates autonomous agents via **OpenClaw**, utilizes **embedding** models for semantic intelligence, and leverages **ChromaDB** for persistent, local vector storage and **LangChain** for fully offline Retrieval-Augmented Generation (RAG).
 
 ---
 
 ## 🚀 Key Modules
+### 🤖 Reliable Human–AI Operating System
+ [📊 View Reliable Human–AI Operating System ](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Reliable_Human_AI_Operating_System_Arch.html)
+**Move from using AI agents to designing a reliable human–AI operating system**
+What should be done · why it should be done · how to judge the result · and when the agent must not act
 
 ### 🤖 Autonomous AI Agents (OpenClaw)
  [📊 View Autonomous Multi-Agent ](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Openclaw.html)
