@@ -6,7 +6,7 @@ This modular AI suite presents **Reliable Human–AI Operating System**, orchest
 
 ## 🚀 Key Modules
 ### 🤖 Reliable Human–AI Operating System
- [📊 View Reliable Human–AI Operating System ](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Reliable_Human_AI_Operating_System_Arch.html)
+ [📊 View Reliable Human–AI Operating System ](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
 * **Move from using AI agents to designing a reliable human–AI operating system**
 What should be done · why it should be done · how to judge the result · and when the agent must not act
 
