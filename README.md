@@ -6,15 +6,15 @@ This modular AI suite presents **Reliable Human–AI Operating System**, orchest
 
 ## 🚀 Key Modules
 ### 🤖 Reliable Human–AI Operating System
- [📊 View Reliable Human–AI Operating System ](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
+ [📊 Reliable Human–AI Operating System ](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
 * **Move from using AI agents to designing a reliable human–AI operating system**
 What should be done · why it should be done · how to judge the result · and when the agent must not act
 
-### 🤖 Autonomous AI Agents (OpenClaw)
- [📊 View Autonomous Multi-Agent ](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Openclaw.html)
-*   **Autonomous Multi-Agent Framework**: An objective-driven system utilizing **OpenClaw** where independent agents (**Mei, John, Sam**) execute complex tasks through collaborative or independent workflows.
-*   **Isolated Workspaces**: Ensures data security by running each agent within a dedicated local file-system environment.
-*   **API Gateway Orchestration**: Centralized routing via **OpenRouter** and **Ollama**, transitioning from simple chatbots to goal-oriented autonomous systems.
+### 🤖 Autonomous AI Agents
+<img src="Multi_agents.png" style="max-width:100%; height:auto;" alt="Architecture Diagram">  
+
+ [📊 Governed Agentic System ](https://xiaoyanpan.com/#governed-agentic-system)
+
 
 ### 🧬 Semantic Search & Embeddings
 *   **Local_Embeddings.py**: High-performance text vectorization using `all-MiniLM-L6-v2` running locally.

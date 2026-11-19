@@ -21,3 +21,5 @@ Thumbs.db
 # 4. Ignore environment variables (passwords/API keys)
 .env
 .streamlit/secrets.toml
+
+chroma_data/
