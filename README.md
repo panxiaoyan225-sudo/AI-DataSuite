@@ -5,15 +5,17 @@ This modular AI suite presents **Reliable Human–AI Operating System**, orchest
 ---
 
 ## 🚀 Key Modules
-### 🤖 Reliable Human–AI Operating System
- [📊 Reliable Human–AI Operating System ](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
-* **Move from using AI agents to designing a reliable human–AI operating system**
-What should be done · why it should be done · how to judge the result · and when the agent must not act
 
-### 🤖 Autonomous AI Agents
+### 🤖 Autonomous AI Agents   
+
 <img src="Multi_agents.png" style="max-width:100%; height:auto;" alt="Architecture Diagram">  
+[📊 Governed Agentic System ](https://xiaoyanpan.com/#governed-agentic-system)
 
- [📊 Governed Agentic System ](https://xiaoyanpan.com/#governed-agentic-system)
+
+### 🤖 Reliable Human–AI Operating System  
+
+**Move from using AI agents to designing a reliable human–AI operating system**
+What should be done · why it should be done · how to judge the result · and when the agent must not act [📊 Reliable Human–AI Operating System ](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
 
 
 ### 🧬 Semantic Search & Embeddings
