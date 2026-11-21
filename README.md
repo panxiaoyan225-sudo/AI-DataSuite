@@ -1,4 +1,4 @@
-## AI-DataSuite: Governed Human–AI Systems and Applied AI
+## Governed Human–AI Systems and Applied AI
 
 This repository brings together applied work on **autonomous agents, human–AI governance, semantic retrieval, and local AI workflows**.
 
@@ -79,7 +79,7 @@ These are supporting experiments and applications within the broader AI/data wor
 
 ## How this repository fits the broader direction
 
-The projects in this repository explore the operating layer of an intelligence system: how agents are organized, what knowledge they can access, how their work is evaluated, and where human authority remains.
+The projects in this repository explore the operating layer of an intelligence system: **how agents are organized, what knowledge they can access, how their work is evaluated, and where human authority remains**.
 
 The related projects address complementary parts of that direction:
 
