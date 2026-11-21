@@ -23,3 +23,6 @@ Thumbs.db
 .streamlit/secrets.toml
 
 chroma_data/
+Openclaw.html
+codes/
+README copy.md
