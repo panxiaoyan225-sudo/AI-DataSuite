@@ -1,6 +1,6 @@
 ## Reliable AI Systems & Architecture
 
-This repository brings together applied work on **autonomous Data-to-Narrative Pipelines,autonomous agents, human–AI governance, semantic retrieval, local AI workflows**.
+This repository brings together applied work on **Autonomous Data-to-Narrative Engine,autonomous agents, human–AI governance, semantic retrieval, local AI workflows**.
 
 The unifying question is not simply how to make an AI model perform a task. It is:
 
