@@ -19,7 +19,9 @@ Active, self-driving system that continuously turns raw inputs into finished int
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">
 
 
-[**Data-to-Narrative_walkthrough.html**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Rendered, output-only walkthrough showcasing all generated charts, audit checks, and executive narratives (open locally in your browser or via GitHub Pages).
+[**Data-to-Narrative_walkthrough.html**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Rendered, output-only walkthrough showcasing all generated charts, audit checks, and executive narratives (open locally in your browser or via GitHub Pages).  
+[**Executive_Expense_Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines /Executive_Expense_Report_2026-11-26.html) 
+
 
 Two complementary architectural approaches are considered.  
 ### 4.1 Compute-Then-Communicate
