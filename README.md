@@ -62,31 +62,21 @@ The result is a repeatable and reusable pipeline that connects trusted data engi
 
 ```mermaid
 flowchart LR
-    A["1. Data Sources<br/>Multiple source systems and datasets"]
-    B["2. Automated Data Engineering<br/>Ingestion · Cleaning · Transformation · Validation"]
-    C["3. Trusted Data Foundation<br/>Consistent · Validated · Reusable data"]
-    D["4. Analytical Computation<br/>Python · Statistical analysis · Trends · Forecasts"]
-    E["5. LLM-Generated Narrative<br/>Structured findings → Evidence-grounded interpretation"]
-    F["6. Automated Reporting<br/>Charts · Excel · Narratives · Optional presentations"]
+    A["1. Data Sources<br/>Source systems & datasets"]
+    B["2. Data Engineering<br/>Ingest · Clean · Transform · Validate"]
+    C["3. Trusted Data<br/>Consistent · Validated · Reusable"]
+    D["4. Analytics<br/>Python · Stats · Trends · Forecasts"]
+    E["5. LLM Narrative<br/>Evidence-grounded findings"]
+    F["6. Reporting<br/>Charts · Excel · Narratives · Slides"]
     G(["Repeatable · Reusable · Automated"])
 
     A --> B --> C --> D --> E --> F --> G
 
-    classDef source fill:#edf2f8,stroke:#7890aa,color:#23364d
-    classDef engineering fill:#e5efff,stroke:#5684bd,color:#183b65
-    classDef foundation fill:#e1f2e8,stroke:#579b75,color:#20583a
-    classDef analytics fill:#e8efff,stroke:#6685c2,color:#263f70
-    classDef ai fill:#f0e9ff,stroke:#9472c5,color:#49316d
-    classDef reporting fill:#e1f2e8,stroke:#579b75,color:#20583a
-    classDef outcome fill:#dceee5,stroke:#468967,color:#174b31
+    classDef step fill:#f8fafc,stroke:#94a3b8,stroke-width:1.25px,color:#0f172a
+    classDef finalStep fill:#f1f5f9,stroke:#64748b,stroke-width:1.5px,color:#0f172a
 
-    class A source
-    class B engineering
-    class C foundation
-    class D analytics
-    class E ai
-    class F reporting
-    class G outcome
+    class A,B,C,D,E,F step
+    class G finalStep
 ```
 
 
