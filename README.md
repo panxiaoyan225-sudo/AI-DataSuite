@@ -76,7 +76,7 @@ This pipeline separates analytical computation from language generation. Python 
 
 **Pipeline flow**
 
-`rusted Data Foundation → Python Computation → Structured Summary → Local LLM → Narrative Output`
+`Trusted Data Foundation → Python Computation → Structured Summary → Local LLM → Narrative Output`
 
 **Stage 1 — Compute (Python)**
 
