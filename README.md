@@ -1,6 +1,6 @@
 # Governed Human–AI Systems and Applied AI
 
-This repository brings together applied work on **autonomous agents, human–AI governance, semantic retrieval, and local AI workflows**.
+This repository brings together applied work on **autonomous agents, human–AI governance, semantic retrieval, local AI workflows and autonomous Data-to-Narrative Pipelines-integrating analytical computation with LLM-generated intelligence through governed data-to-narrative pipelines.**.
 
 The unifying question is not simply how to make an AI model perform a task. It is:
 
@@ -58,7 +58,7 @@ These components support local semantic search and retrieval-augmented generatio
 
 ## 4. Autonomous Data-to-Narrative Pipelines
 
-This work extends AI-assisted analysis beyond retrieval and question answering. It explores how autonomous workflows can transform structured datasets into reproducible analytical results, visual outputs, and narrative reporting.
+In this pipeline I extends AI-assisted analysis beyond retrieval and question answering. It explores how autonomous workflows can transform structured datasets into reproducible analytical results, visual outputs, and narrative reporting.
 
 Two complementary architectural approaches are considered.
 
