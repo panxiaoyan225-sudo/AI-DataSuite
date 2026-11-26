@@ -1,6 +1,6 @@
 # Reliable AI Systems & Architecture
 
-This repository brings together applied work on **autonomous Data-to-Narrative Pipelines,autonomous agents, human–AI governance, semantic retrieval, local AI workflows and **.
+This repository brings together applied work on **autonomous Data-to-Narrative Pipelines,autonomous agents, human–AI governance, semantic retrieval, local AI workflows**.
 
 The unifying question is not simply how to make an AI model perform a task. It is:
 
@@ -12,6 +12,7 @@ The work connects agent orchestration with the knowledge, analytical methods, an
 
 ## 1.Data-to-Narrative Pipeline
 An end-to-end automated workflow that transforms fragmented source data into decision-ready reports. It integrates data ingestion, cleaning, transformation and validation to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.  
+
 **The result is a repeatable and reusable pipeline that connects trusted data engineering with analytical intelligence and automated reporting, minimizing manual intervention.**  
 `Source Data → Automated Data Engineering → Trusted Data Foundation → Analytical Computation → LLM-Generated Narrative → Automated Reporting`
 
