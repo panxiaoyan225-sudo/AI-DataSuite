@@ -54,7 +54,7 @@ The repository also contains the technical building blocks used by knowledge-ori
 | Local RAG | LangChain with Ollama |
 | Semantic search | Embedding-based document retrieval |
 
-These components support local semantic search and retrieval-augmented generation. They are related to, but distinct from, the more focused [Agentic_RAG_Pipeline](https://github.com/panxiaoyan225-sudo/Agentic_RAG_Pipeline), which demonstrates retrieval planning, source prioritization, and evidence evaluation in one end-to-end workflow.
+These components support local semantic search and retrieval-augmented generation. They are related to, but distinct from, the more focused  **Custom Agentic_RAG_Pipeline** which demonstrates retrieval planning, source prioritization, and evidence evaluation in one end-to-end workflow. Explore the Architecture of [Custom Agentic RAG ](https://github.com/panxiaoyan225-sudo/Agentic_RAG_Pipeline) .
 
 ## 4. Autonomous Data-to-Narrative Pipelines
 

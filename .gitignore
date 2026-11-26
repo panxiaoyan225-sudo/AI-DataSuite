@@ -40,4 +40,4 @@ README copy.md
 *.XLSM
 *.XLSB
 
-Data-to-Narrative-Pipelines\Compute-Then-Communicate_env.ipynb
+Compute-Then-Communicate_env.ipynb
