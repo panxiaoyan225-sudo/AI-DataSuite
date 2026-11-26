@@ -18,8 +18,8 @@ Active, self-driving system that continuously turns raw inputs into finished int
 
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">
 
+`Data-to-Narrative_walkthrough.ipynb` : Interactive walkthrough demonstrating the core workflow stages, validation gates, and generated outputs.
 
-In `Compute-Then-Communicate_Expense.ipynb` I extends AI-assisted analysis beyond retrieval and question answering. It explores how autonomous workflows can transform structured datasets into reproducible analytical results, visual outputs, and narrative reporting.
 
 Two complementary architectural approaches are considered.
 
@@ -27,7 +27,7 @@ Two complementary architectural approaches are considered.
 
 **Deterministic computation first. LLM-generated narrative second.**
 
-This pipeline separates analytical computation from language generation. Python performs the calculations, while a local LLM communicates the resulting insights in a professional, structured narrative.
+This pipeline separates analytical computation from language generation. Python performs the calculations, while a local LLM communicates the resulting insights in a professional, structured narrative. 
 
 **Pipeline flow**
 

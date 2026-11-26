@@ -47,3 +47,5 @@ Compute-Then-Communicate_env.ipynb
 expense_reports/
 
 load_csv_to_mysql.py
+Compute-Then-Communicate_Expense_FullCode.ipynb
+fix_excel_merge_bug.py
