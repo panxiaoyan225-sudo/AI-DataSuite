@@ -1,4 +1,4 @@
-# Governed Human–AI Systems and Applied AI
+# Reliable AI Systems & Architecture
 
 This repository brings together applied work on **autonomous agents, human–AI governance, semantic retrieval, local AI workflows and autonomous Data-to-Narrative Pipelines-integrating analytical computation with LLM-generated intelligence through governed data-to-narrative pipelines.**.
 
