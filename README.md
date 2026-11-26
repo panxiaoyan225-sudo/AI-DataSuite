@@ -18,7 +18,6 @@ Active, self-driving system that continuously turns raw inputs into finished int
 
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">
 
-`Data-to-Narrative_walkthrough.ipynb` : Interactive walkthrough demonstrating the core workflow stages, validation gates, and generated outputs.
 
 
 Two complementary architectural approaches are considered.
