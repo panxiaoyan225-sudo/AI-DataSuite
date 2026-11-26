@@ -24,7 +24,7 @@ Active, self-driving system that continuously turns raw inputs into finished int
 
 
 Two complementary architectural approaches are considered.  
-### 4.1 Compute-Then-Communicate
+### 1.1 Compute-Then-Communicate
 
 **Deterministic computation first. LLM-generated narrative second.**
 
@@ -72,7 +72,7 @@ PowerPoint reporting can also be generated as an optional extension.
 
 The separation of computation and communication helps keep numerical analysis reproducible while using the LLM for interpretation and presentation. Narrative validation remains an important additional safeguard.
 
-### 4.2 Direct LLM-to-DB (Text-to-SQL)
+### 1.2 Direct LLM-to-DB (Text-to-SQL)
 
 **Natural-language questions translated into database queries.**
 
@@ -104,7 +104,7 @@ A governed implementation should therefore include:
 
 A semantic layer can further constrain queries to governed metrics and approved business definitions instead of exposing unrestricted access to raw tables.
 
-### 4.3 Choosing the Right Architecture
+### 1.3 Choosing the Right Architecture
 
 The two approaches address different analytical needs:
 
