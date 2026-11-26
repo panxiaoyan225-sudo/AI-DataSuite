@@ -58,10 +58,10 @@ These components support local semantic search and retrieval-augmented generatio
 
 ## 4.Data-to-Narrative Pipeline
 An end-to-end automated workflow that transforms fragmented source data into decision-ready reports. It integrates data ingestion, cleaning, transformation and validation to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.
-The result is a repeatable and reusable pipeline that connects trusted data engineering with analytical intelligence and automated reporting, minimizing manual intervention.
+The result is a repeatable and reusable pipeline that connects trusted data engineering with analytical intelligence and automated reporting, minimizing manual intervention.  
+`Source Data → Automated Data Engineering → Trusted Data Foundation → Analytical Computation → LLM-Generated Narrative → Automated Reporting`
 
-
-<img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Data-to-Narrative Pipeline" style="max-width:100%;height:auto;">
+<img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">
 
 
 In this pipeline I extends AI-assisted analysis beyond retrieval and question answering. It explores how autonomous workflows can transform structured datasets into reproducible analytical results, visual outputs, and narrative reporting.
@@ -76,7 +76,7 @@ This pipeline separates analytical computation from language generation. Python 
 
 **Pipeline flow**
 
-`Source Data → Python Computation → Structured Summary → Local LLM → Narrative Output`
+`rusted Data Foundation → Python Computation → Structured Summary → Local LLM → Narrative Output`
 
 **Stage 1 — Compute (Python)**
 
