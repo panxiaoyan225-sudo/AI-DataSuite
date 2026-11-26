@@ -64,7 +64,7 @@ An end-to-end automated workflow that transforms fragmented source data into dec
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">
 
 
-In this pipeline I extends AI-assisted analysis beyond retrieval and question answering. It explores how autonomous workflows can transform structured datasets into reproducible analytical results, visual outputs, and narrative reporting.
+In `Compute-Then-Communicate_Expense.ipynb` I extends AI-assisted analysis beyond retrieval and question answering. It explores how autonomous workflows can transform structured datasets into reproducible analytical results, visual outputs, and narrative reporting.
 
 Two complementary architectural approaches are considered.
 
