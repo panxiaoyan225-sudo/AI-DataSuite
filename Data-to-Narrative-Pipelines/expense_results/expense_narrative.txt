@@ -1,0 +1,29 @@
+**Executive Summary**
+
+The expense analysis for the period of April 2026 to September 2026 reveals a significant underperformance against the approved budget. The total expense for the period stands at $12,619,900, which is $19,346,720 less than the approved budget of $34,423,000, representing a budget variance of -56.2%. The report highlights the need for immediate attention to address the underperformance and ensure that the organization is on track to meet its financial objectives.
+
+**Key Insights**
+
+The analysis reveals that the highest spending Business Unit was Corporate Services, with expenses totaling $3,962,500. The largest expense category was Salaries, accounting for $6,612,900 of the total expenses. Notably, there are no cost centres that are significantly over budget, with all cost centres experiencing underperformance.
+
+**Spending Trends**
+
+The monthly trend analysis reveals a significant increase in expenses from April 2026, with a peak in June 2026, where expenses increased by 155.7% compared to the previous month. This trend is consistent across all Business Units, with Corporate Services experiencing the highest spending.
+
+**Budget Variance Analysis**
+
+The budget variance analysis reveals that all Business Units are underperforming against their approved budgets. Corporate Services is the most underperforming Business Unit, with a variance of -56.4%. The largest expense category, Salaries, also experienced a significant underperformance, with a variance of -59.3%.
+
+**Cost Centre Observations**
+
+The analysis reveals that the top 10 cost centres by expense are all experiencing underperformance. The largest cost centre, CS100 (Corporate Services), experienced a variance of -47.7%. Notably, all cost centres are experiencing underperformance, with no cost centres significantly over budget.
+
+**Recommendations**
+
+Based on the analysis, the following recommendations are made:
+
+1. Immediate attention is required to address the underperformance of all Business Units and cost centres.
+2. A review of the budget and spending plans is necessary to identify areas where costs can be reduced or optimized.
+3. A detailed analysis of the Salaries expense category is required to identify areas where costs can be reduced.
+4. A review of the monthly trend analysis is necessary to identify areas where expenses can be reduced or optimized.
+5. A plan should be developed to address the underperformance of all Business Units and cost centres, with clear targets and timelines for improvement.

@@ -43,7 +43,7 @@ README copy.md
 Compute-Then-Communicate_env.ipynb
 
 # Exclude expense result/report folders everywhere in the repo
-expense_results/
+
 expense_reports/
 
 load_csv_to_mysql.py
