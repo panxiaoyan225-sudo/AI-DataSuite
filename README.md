@@ -13,7 +13,7 @@ The work connects agent orchestration with the knowledge, analytical methods, an
 ## 1. Autonomous Data-to-Narrative Engine : Agentic • Repeatable • Reusable
 Active, self-driving system that continuously turns raw inputs into finished intelligence. It integrates data ingestion, cleaning, transformation and validation to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.  
 
-**The result is a repeatable and reusable workflow that connects trusted data engineering with analytical intelligence and automated reporting, minimizing manual intervention.**  
+**The result is a repeatable and reusable autonomous workflow that connects Raw data source, with automated Data Engineering,analytical intelligence and automated reporting, zero manual intervention.**  
 `Source Data → Automated Data Engineering → Trusted Data Foundation → Analytical Computation → LLM-Generated Narrative → Automated Reporting`
 
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">
