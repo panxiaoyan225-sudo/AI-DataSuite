@@ -50,3 +50,4 @@ load_csv_to_mysql.py
 Compute-Then-Communicate_Expense_FullCode.ipynb
 Compute-Then-Communicate_Expense.ipynb
 fix_excel_merge_bug.py
+generate_exec_report.py

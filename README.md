@@ -11,7 +11,7 @@ The work connects agent orchestration with the knowledge, analytical methods, an
 [**Governed Agentic System**](https://xiaoyanpan.com/#governed-agentic-system) · [**Reliable Human–AI Operating System**](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
 
 ## 1. Autonomous Data-to-Narrative Engine : Agentic • Repeatable • Reusable
-i buil this self-driving system that can carry an analytical workflow from source data to a finished intelligence report. This is more than automating a report-writing task. It is automating the production of analytical intelligence - integrating data ingestion, cleaning, transformation and validation to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.  
+This self-driving system can carry an analytical workflow from source data to a finished intelligence report. This is more than automating a report-writing task. It is automating the production of analytical intelligence - integrating data ingestion, cleaning, transformation and validation to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.  
 
 **The result is a repeatable and reusable autonomous workflow that connects Raw data source, with automated Data Engineering,analytical intelligence and automated reporting, zero manual intervention.**  
 `Source Data → Automated Data Engineering → Trusted Data Foundation → Analytical Computation → LLM-Generated Narrative → Automated Reporting`
