@@ -60,24 +60,8 @@ These components support local semantic search and retrieval-augmented generatio
 An end-to-end automated workflow that transforms fragmented source data into decision-ready reports. It integrates data ingestion, cleaning, transformation and validation to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.
 The result is a repeatable and reusable pipeline that connects trusted data engineering with analytical intelligence and automated reporting, minimizing manual intervention.
 
-```mermaid
-flowchart LR
-    A["1. Data Sources<br/>Source systems & datasets"]
-    B["2. Data Engineering<br/>Ingest · Clean · Transform · Validate"]
-    C["3. Trusted Data<br/>Consistent · Validated · Reusable"]
-    D["4. Analytics<br/>Python · Stats · Trends · Forecasts"]
-    E["5. LLM Narrative<br/>Evidence-grounded findings"]
-    F["6. Reporting<br/>Charts · Excel · Narratives · Slides"]
-    G(["Repeatable · Reusable · Automated"])
 
-    A --> B --> C --> D --> E --> F --> G
-
-    classDef step fill:#f8fafc,stroke:#94a3b8,stroke-width:1.25px,color:#0f172a
-    classDef finalStep fill:#f1f5f9,stroke:#64748b,stroke-width:1.5px,color:#0f172a
-
-    class A,B,C,D,E,F step
-    class G finalStep
-```
+<img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Data-to-Narrative Pipeline" style="max-width:100%;height:auto;">
 
 
 In this pipeline I extends AI-assisted analysis beyond retrieval and question answering. It explores how autonomous workflows can transform structured datasets into reproducible analytical results, visual outputs, and narrative reporting.
