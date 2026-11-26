@@ -26,3 +26,18 @@ chroma_data/
 Openclaw.html
 codes/
 README copy.md
+
+# 5.  Ignore all excel data fiels
+*.csv
+*.CSV
+
+*.xls
+*.xlsx
+*.xlsm
+*.xlsb
+*.XLS
+*.XLSX
+*.XLSM
+*.XLSB
+
+Data-to-Narrative-Pipelines\Compute-Then-Communicate_env.ipynb
