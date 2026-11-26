@@ -41,3 +41,7 @@ README copy.md
 *.XLSB
 
 Compute-Then-Communicate_env.ipynb
+
+# Exclude expense result/report folders everywhere in the repo
+expense_results/
+expense_reports/
