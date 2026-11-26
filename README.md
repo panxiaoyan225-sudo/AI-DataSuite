@@ -18,10 +18,9 @@ Active, self-driving system that continuously turns raw inputs into finished int
 
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">
 
+`Data-to-Narrative_walkthrough.html` — Rendered, output-only walkthrough showcasing all generated charts, audit checks, and executive narratives (open locally in your browser or via GitHub Pages).
 
-
-Two complementary architectural approaches are considered.
-
+Two complementary architectural approaches are considered.  
 ### 4.1 Compute-Then-Communicate
 
 **Deterministic computation first. LLM-generated narrative second.**
