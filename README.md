@@ -1,6 +1,6 @@
 # Reliable AI Systems & Architecture
 
-This repository brings together applied work on **autonomous agents, human–AI governance, semantic retrieval, local AI workflows and autonomous Data-to-Narrative Pipelines-integrating analytical computation with LLM-generated intelligence through governed data-to-narrative pipelines.**.
+This repository brings together applied work on **autonomous Data-to-Narrative Pipelines,autonomous agents, human–AI governance, semantic retrieval, local AI workflows and **.
 
 The unifying question is not simply how to make an AI model perform a task. It is:
 
@@ -10,53 +10,7 @@ The work connects agent orchestration with the knowledge, analytical methods, an
 
 [**Governed Agentic System**](https://xiaoyanpan.com/#governed-agentic-system) · [**Reliable Human–AI Operating System**](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
 
-## 1. Autonomous agents and orchestration
-
-<img src="Multi_agents.png" alt="Multi-agent system architecture" style="max-width:100%;height:auto;">
-
-The repository includes work with **OpenClaw** and multi-agent workflows. The architecture explores how distinct agents can carry out assigned responsibilities, coordinate through an orchestration layer, and return work for human review.
-
-The emphasis is on more than agent execution:
-
-- Defined responsibilities and operating boundaries.
-- Coordination across agents and task stages.
-- Human supervision and decision authority.
-- Clear handling of outputs that require review.
-
-See the [Governed Agentic System](https://xiaoyanpan.com/#governed-agentic-system) for the broader architecture.
-
-## 2. Reliable Human–AI Operating System
-
-The operating-system framework extends beyond individual prompts or agents. It organizes the conditions under which AI work should be performed:
-
-- **Mandate:** what the agent is authorized to do.
-- **Knowledge:** what information and evidence it may use.
-- **Method:** how the task should be approached.
-- **Test:** how the result should be evaluated.
-- **Supervision:** when human review or intervention is required.
-
-The central principle is:
-
-> AI can execute work. Only humans can own the consequences.
-
-[Explore the Reliable Human–AI Operating System](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
-
-## 3. Knowledge retrieval and semantic intelligence
-
-The repository also contains the technical building blocks used by knowledge-oriented AI workflows:
-
-| Capability | Implementation |
-|---|---|
-| Local embeddings | `Local_Embeddings.py` with `all-MiniLM-L6-v2` |
-| Vector similarity | NumPy-based cosine similarity |
-| Text segmentation | Recursive character-based chunking |
-| Persistent vector storage | ChromaDB |
-| Local RAG | LangChain with Ollama |
-| Semantic search | Embedding-based document retrieval |
-
-These components support local semantic search and retrieval-augmented generation. They are related to, but distinct from, the more focused  **Custom Agentic_RAG_Pipeline** which demonstrates retrieval planning, source prioritization, and evidence evaluation in one end-to-end workflow. Explore the Architecture of [Custom Agentic RAG ](https://github.com/panxiaoyan225-sudo/Agentic_RAG_Pipeline) .
-
-## 4.Data-to-Narrative Pipeline
+## 1.Data-to-Narrative Pipeline
 An end-to-end automated workflow that transforms fragmented source data into decision-ready reports. It integrates data ingestion, cleaning, transformation and validation to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.  
 **The result is a repeatable and reusable pipeline that connects trusted data engineering with analytical intelligence and automated reporting, minimizing manual intervention.**  
 `Source Data → Automated Data Engineering → Trusted Data Foundation → Analytical Computation → LLM-Generated Narrative → Automated Reporting`
@@ -168,6 +122,51 @@ These approaches can also be combined. A governed semantic layer can provide app
 
 The architectural choice should follow the analytical requirement, data sensitivity, and level of control required.
 
+## 2. Autonomous agents and orchestration
+
+<img src="Multi_agents.png" alt="Multi-agent system architecture" style="max-width:100%;height:auto;">
+
+The repository includes work with **OpenClaw** and multi-agent workflows. The architecture explores how distinct agents can carry out assigned responsibilities, coordinate through an orchestration layer, and return work for human review.
+
+The emphasis is on more than agent execution:
+
+- Defined responsibilities and operating boundaries.
+- Coordination across agents and task stages.
+- Human supervision and decision authority.
+- Clear handling of outputs that require review.
+
+See the [Governed Agentic System](https://xiaoyanpan.com/#governed-agentic-system) for the broader architecture.
+
+## 3. Reliable Human–AI Operating System
+
+The operating-system framework extends beyond individual prompts or agents. It organizes the conditions under which AI work should be performed:
+
+- **Mandate:** what the agent is authorized to do.
+- **Knowledge:** what information and evidence it may use.
+- **Method:** how the task should be approached.
+- **Test:** how the result should be evaluated.
+- **Supervision:** when human review or intervention is required.
+
+The central principle is:
+
+> AI can execute work. Only humans can own the consequences.
+
+[Explore the Reliable Human–AI Operating System](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
+
+## 4. Knowledge retrieval and semantic intelligence
+
+The repository also contains the technical building blocks used by knowledge-oriented AI workflows:
+
+| Capability | Implementation |
+|---|---|
+| Local embeddings | `Local_Embeddings.py` with `all-MiniLM-L6-v2` |
+| Vector similarity | NumPy-based cosine similarity |
+| Text segmentation | Recursive character-based chunking |
+| Persistent vector storage | ChromaDB |
+| Local RAG | LangChain with Ollama |
+| Semantic search | Embedding-based document retrieval |
+
+These components support local semantic search and retrieval-augmented generation. They are related to, but distinct from, the more focused  **Custom Agentic_RAG_Pipeline** which demonstrates retrieval planning, source prioritization, and evidence evaluation in one end-to-end workflow. Explore the Architecture of [Custom Agentic RAG ](https://github.com/panxiaoyan225-sudo/Agentic_RAG_Pipeline) .
 ## 5. Additional applied AI modules
 
 The repository includes smaller applications that explore other ways AI can support information work:
