@@ -1,4 +1,4 @@
-# Reliable AI Systems & Architecture
+## Reliable AI Systems & Architecture
 
 This repository brings together applied work on **autonomous Data-to-Narrative Pipelines,autonomous agents, human–AI governance, semantic retrieval, local AI workflows**.
 
