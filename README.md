@@ -18,7 +18,7 @@ This is more than automating a report-writing task. It is **automating the produ
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">  
 
 [**Data-to-Narrative_walkthrough.html**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Rendered, output-only walkthrough showcasing all generated charts, audit checks, and executive narratives (open locally in your browser or via GitHub Pages).  
-[**Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) First draft generated end-to-end by the Autonomous Data-to-Narrative Engine,providing a structured baseline for human review and refinement.
+[**Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) - First draft generated end-to-end by the Autonomous Data-to-Narrative Engine,providing a structured baseline for human review and refinement.
 
 
 Two complementary architectural approaches are considered.  
