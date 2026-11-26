@@ -56,7 +56,39 @@ The repository also contains the technical building blocks used by knowledge-ori
 
 These components support local semantic search and retrieval-augmented generation. They are related to, but distinct from, the more focused  **Custom Agentic_RAG_Pipeline** which demonstrates retrieval planning, source prioritization, and evidence evaluation in one end-to-end workflow. Explore the Architecture of [Custom Agentic RAG ](https://github.com/panxiaoyan225-sudo/Agentic_RAG_Pipeline) .
 
-## 4. Autonomous Data-to-Narrative Pipelines
+## 4.Data-to-Narrative Pipeline
+An end-to-end automated workflow that transforms fragmented source data into decision-ready reports. It integrates data ingestion, cleaning, transformation and validation to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.
+The result is a repeatable and reusable pipeline that connects trusted data engineering with analytical intelligence and automated reporting, minimizing manual intervention.
+
+```mermaid
+flowchart LR
+    A["1. Data Sources<br/>Multiple source systems and datasets"]
+    B["2. Automated Data Engineering<br/>Ingestion · Cleaning · Transformation · Validation"]
+    C["3. Trusted Data Foundation<br/>Consistent · Validated · Reusable data"]
+    D["4. Analytical Computation<br/>Python · Statistical analysis · Trends · Forecasts"]
+    E["5. LLM-Generated Narrative<br/>Structured findings → Evidence-grounded interpretation"]
+    F["6. Automated Reporting<br/>Charts · Excel · Narratives · Optional presentations"]
+    G(["Repeatable · Reusable · Automated"])
+
+    A --> B --> C --> D --> E --> F --> G
+
+    classDef source fill:#edf2f8,stroke:#7890aa,color:#23364d
+    classDef engineering fill:#e5efff,stroke:#5684bd,color:#183b65
+    classDef foundation fill:#e1f2e8,stroke:#579b75,color:#20583a
+    classDef analytics fill:#e8efff,stroke:#6685c2,color:#263f70
+    classDef ai fill:#f0e9ff,stroke:#9472c5,color:#49316d
+    classDef reporting fill:#e1f2e8,stroke:#579b75,color:#20583a
+    classDef outcome fill:#dceee5,stroke:#468967,color:#174b31
+
+    class A source
+    class B engineering
+    class C foundation
+    class D analytics
+    class E ai
+    class F reporting
+    class G outcome
+```
+
 
 In this pipeline I extends AI-assisted analysis beyond retrieval and question answering. It explores how autonomous workflows can transform structured datasets into reproducible analytical results, visual outputs, and narrative reporting.
 
