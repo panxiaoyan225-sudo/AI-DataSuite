@@ -9,7 +9,7 @@ The unifying question is not simply how to make an AI model perform a task. It i
 
 ## 1. Autonomous Data-to-Narrative Engine : Agentic • Repeatable • Reusable  
 **I am  testing a different question**:
-> Can the system carry the entire analytical workflow and produce a finished report without someone manually moving between tools and performing each step?
+> Can the system carry the entire workflow end-to-end without human handoffs between tools?
 
 So i built a self-driving system that can carry an entire workflow from source data to a finished intelligence report.     
 This is more than automating a report-writing task. It is **automating the production of analytical intelligence** - connects raw data source, with automated Data Engineering to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.      
