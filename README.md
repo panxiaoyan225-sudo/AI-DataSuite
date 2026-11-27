@@ -63,7 +63,7 @@ The pipeline organizes its outputs into reusable analytical and reporting artifa
 | `{BASE_DIR}/results/` | Charts, structured summaries, narrative text, cleaned datasets, and aggregation tables |
 | `{BASE_DIR}/reports/` | Excel reports with raw data, dimension and fact tables, aggregations, key metrics, and charts |
 
-PowerPoint reporting can also be generated as an optional extension.
+HTML, PowerPoint reporting can also be generated as an optional extension.
 
 **Data and accuracy boundaries**
 
