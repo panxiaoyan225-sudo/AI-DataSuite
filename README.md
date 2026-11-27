@@ -17,12 +17,12 @@ This is more than automating a report-writing task. It is **automating the produ
 I am  testing a different question:
 > Can the system carry the entire analytical workflow and produce a finished report without someone manually moving between tools and performing each step?
 
-`Source Data → Automated Data Engineering → Trusted Data Foundation → Analytical Computation → LLM-Generated Narrative → Automated Reporting`  
+`Source Data → Data Engineering → Trusted Data → Computation → LLM-Generated Narrative → Draft Report → Human approval → Final Intelligence Report`  
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">  
 
  
-[**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Rendered, output-only walkthrough showcasing all generated charts, audit checks, and executive narratives (open locally in your browser or via GitHub Pages).  
-[**Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) - First draft generated end-to-end by the Autonomous Data-to-Narrative Engine,providing a structured baseline for human review and refinement.  
+[**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Rendered, output-only walkthrough showcasing all generated charts, audit checks, and executive narratives.  
+[**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) - First draft generated end-to-end by the Autonomous Data-to-Narrative Engine,providing a structured baseline for human review and refinement.  
 
 And I have the Answer: **Automate the analytical workflow. Preserve human judgment. Deliver trusted intelligence.** 
 
