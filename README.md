@@ -26,7 +26,7 @@ This is more than automating a report-writing task. It is **automating the produ
 
 
 
-### Two complementary architectural approaches are considered.  
+### Two complementary architectural approaches 
 ### 1.1 Compute-Then-Communicate
 
 **Deterministic computation first. LLM-generated narrative second.**
