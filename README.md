@@ -6,7 +6,6 @@ The unifying question is not simply how to make an AI model perform a task. It i
 
 > How should an AI-enabled system be organized so that agents can execute work reliably while authority, oversight, and accountability remain clear?
 
-The work connects agent orchestration with the knowledge, analytical methods, and operating rules required for dependable use.
 
 ## 1. Autonomous Data-to-Narrative Engine : Agentic • Repeatable • Reusable  
 I am  testing a different question:
