@@ -8,8 +8,6 @@ The unifying question is not simply how to make an AI model perform a task. It i
 
 The work connects agent orchestration with the knowledge, analytical methods, and operating rules required for dependable use.
 
-[**Governed Agentic System**](https://xiaoyanpan.com/#governed-agentic-system) · [**Reliable Human–AI Operating System**](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html)
-
 ## 1. Autonomous Data-to-Narrative Engine : Agentic • Repeatable • Reusable  
 I am  testing a different question:
 > Can the system carry the entire analytical workflow and produce a finished report without someone manually moving between tools and performing each step?
@@ -203,6 +201,7 @@ The projects in this repository explore the operating layer of an intelligence s
 The related projects address complementary parts of that direction:
 
 - [Agentic RAG Pipeline](https://github.com/panxiaoyan225-sudo/Agentic_RAG_Pipeline): how an agent retrieves and evaluates knowledge.
+- [Reliable Human–AI Operating System](https://xiaoyanpan.com/Reliable_Human_AI_Operating_System_Arch.html): How make agnets useful and reliable. 
 - [Data-Driven Foresight](https://github.com/panxiaoyan225-sudo/Data-Driven-Foresight): how longitudinal data becomes forward-looking analytical intelligence.
 - [Data Pipelines](https://github.com/panxiaoyan225-sudo/Data-Pipelines): how data workflows are ingested, validated, and automated.
 
