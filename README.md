@@ -19,8 +19,7 @@ So I built an early self-driving workflow that connects data ingestion, engineer
 
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;"> 
 
-[**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Generated charts, validation checks and analytical narratives.
-
+[**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Generated charts, validation checks and analytical narratives.  
 [**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) — First end-to-end report, ready for human review and refinement.
 
 **Building this changed how I see the future of work.**  
