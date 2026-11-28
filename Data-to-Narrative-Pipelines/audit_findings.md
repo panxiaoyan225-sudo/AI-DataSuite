@@ -1,4 +1,4 @@
-# Final Audit Report — Compute-Then-Communicate_Expense_ThirdVersion.ipynb
+# Final Audit Report 
 
 The audit completed successfully. No serious problems found.
 
