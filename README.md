@@ -1,6 +1,6 @@
 <p align="right">Xiaoyan Pan</p>
 
-## Reliable AI Architecture
+## Reliable AI Architecture  
 
 This repository brings together applied work on **Autonomous Data-to-Narrative Engine,autonomous agents, human–AI governance, semantic retrieval, local AI workflows**.
 
