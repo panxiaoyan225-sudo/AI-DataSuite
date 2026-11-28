@@ -1,6 +1,6 @@
 ## Reliable AI Architecture
 
-This repository brings together applied work on **autonomous Data-to-Narrative Engine,autonomous agents, human–AI governance, semantic retrieval, local AI workflows**.
+This repository brings together applied work on **Autonomous Data-to-Narrative Engine,autonomous agents, human–AI governance, semantic retrieval, local AI workflows**.
 
 The unifying question is not simply how to make an AI model perform a task. It is:
 
@@ -8,19 +8,20 @@ The unifying question is not simply how to make an AI model perform a task. It i
 
 
 ## 1. Autonomous Data-to-Narrative Engine : Agentic • Repeatable • Reusable  
-**I am  testing a different question**:
+I am  testing a different question:
 > Can the system carry the entire workflow end-to-end without human handoffs between tools?
 
-So i built a **self-driving system** that can carry an entire workflow from source data to a finished intelligence report.     
-This is more than automating a report-writing task. It is **automating the production of analytical intelligence** - connects raw data source, with automated Data Engineering to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.      
+So i built a Self-Driving system that can carry an entire workflow from source data to a finished intelligence report.     
+This is more than automating a report-writing task. It is **automating the production of entire analytical intelligence** - connects raw data source, with automated Data Engineering to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.      
 
 
 `Source Data → Data Engineering → Trusted Data → Computation → LLM-Generated Narrative → Draft Report → Human approval → Final Intelligence Report`  
+  
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">  
 
  
 [**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Rendered, output-only walkthrough showcasing all generated charts, audit checks, and executive narratives.  
-[**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) - First draft generated end-to-end by the Autonomous Data-to-Narrative Engine,providing a structured baseline for human review and refinement.  
+[**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) - First draft report generated end-to-end by the autonomous workflow, providing a structured baseline for human review and refinement.  
 
 **And I have the Answer: Automate the workflow. Preserve human judgment. Deliver trusted intelligence.** 
 
