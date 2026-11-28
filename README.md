@@ -18,8 +18,8 @@ So I built a self-driving workflow that connects data ingestion, engineering, va
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;"> 
 
 [**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) ·  [**Audit**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/audit_findings.md) — Agent-generated charts, validation checks ,analytical narratives ,and audit report.   
-[**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) — Agent-generated first end-to-end report, ready for human review and refinement.  
-[**Refined Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Refined_Report.html) — Agent-generated second iteration, refined through human guidance and further instructions. Exploratory, not a final financial report.
+[**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) — Agent-generated first end-to-end report, ready for human review and revise.  
+[**Revised Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Revised_Report.html) — Agent-generated second iteration, revised through human guidance and further instructions. Exploratory, not a final financial report.
 
 **Building this changed how I see the future of work.**  
 A report today usually passes through several tools and several people. If a system can carry that whole chain reliably, much of that routine work will change. I'd rather say that plainly than avoid it.    
