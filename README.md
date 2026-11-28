@@ -13,7 +13,7 @@ I wanted to test a different question:
 
 > Can agents carry an entire workflow without human handoffs between tools?
 
-So I built an early self-driving workflow that connects data ingestion, engineering, validation, analytical computation and local LLM-generated narratives to produce a draft intelligence report.
+So I built a self-driving workflow that connects data ingestion, engineering, validation, analytical computation and local LLM-generated narratives to produce a draft intelligence report.
 
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;"> 
 
@@ -21,8 +21,8 @@ So I built an early self-driving workflow that connects data ingestion, engineer
 [**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) — First end-to-end report, ready for human review and refinement.
 
 **Building this changed how I see the future of work.**  
-A report today usually passes through several tools and several people. If a system can carry that whole chain reliably, much of that routine work will change. I'd rather say that plainly than avoid it.  
-But agents can also misread data and make mistakes without noticing. Someone still has to define the problem, check the assumptions, and correct the work.
+A report today usually passes through several tools and several people. If a system can carry that whole chain reliably, much of that routine work will change. I'd rather say that plainly than avoid it.    
+I have seen agents misread data and make mistakes just like humans—they still need clear explanation to get it right. Someone must define the problem, check the assumptions, and correct the work.
 
 **Let agents drive the workflow. Keep human judgment. Deliver trusted intelligence.**
 
