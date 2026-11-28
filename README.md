@@ -15,8 +15,6 @@ I wanted to test a different question:
 
 So I built an early self-driving workflow that connects data ingestion, engineering, validation, analytical computation and local LLM-generated narratives to produce a draft intelligence report.
 
-`Source Data → Data Engineering → Trusted Data → Computation → LLM-Generated Narrative → Draft Report → Human Approval → Final Intelligence Report`
-
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;"> 
 
 [**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Generated charts, validation checks and analytical narratives.  
