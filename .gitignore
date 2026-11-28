@@ -26,6 +26,10 @@ chroma_data/
 Openclaw.html
 codes/
 README copy.md
+cells/
+cells_corrected/
+cells_third/
+
 
 # 5.  Ignore all excel data fiels
 *.csv
@@ -39,6 +43,13 @@ README copy.md
 *.XLSX
 *.XLSM
 *.XLSB
+*copy*
+*Copy*
+
+# exlude all python working fiels 
+*.py
+*.ipynb
+
 
 Compute-Then-Communicate_env.ipynb
 
@@ -51,3 +62,4 @@ Compute-Then-Communicate_Expense_FullCode.ipynb
 Compute-Then-Communicate_Expense.ipynb
 fix_excel_merge_bug.py
 generate_exec_report.py
+Improve.md
