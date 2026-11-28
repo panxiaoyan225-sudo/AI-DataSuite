@@ -24,7 +24,7 @@ So I built an early self-driving workflow that connects data ingestion, engineer
 A report today usually passes through several tools and several people. If a system can carry that whole chain reliably, much of that routine work will change. I'd rather say that plainly than avoid it.  
 But agents can also misread data and make mistakes without noticing. Someone still has to define the problem, check the assumptions, and correct the work.
 
-**Let agents run the workflow. Keep human judgment. Deliver trusted intelligence.**
+**Let agents drive the workflow. Keep human judgment. Deliver trusted intelligence.**
 
 
 
