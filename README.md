@@ -11,7 +11,7 @@ The unifying question is not simply how to make an AI model perform a task. It i
 
 I wanted to test a different question:
 
-> Can agents carry an entire workflow from source data to a finished intelligence report, without human handoffs between tools?
+> Can agents carry an entire workflow without human handoffs between tools?
 
 So I built an early self-driving workflow that connects data ingestion, engineering, validation, analytical computation and local LLM-generated narratives to produce a draft intelligence report.
 
@@ -23,11 +23,11 @@ So I built an early self-driving workflow that connects data ingestion, engineer
 
 [**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) — First end-to-end report, ready for human review and refinement.
 
-**Building this system also changed how I see the future of work.**
+**Building this changed how I see the future of work.**  
+A report today usually passes through several tools and several people. If a system can carry that whole chain reliably, much of that routine work will change. I'd rather say that plainly than avoid it.  
+But agents can also misread data and make mistakes without noticing. Someone still has to define the problem, check the assumptions, and correct the work.
 
-I realized that if we can make this process reliable enough for real workplace use, agents could take over a substantial part of today's routine knowledge work — connecting tasks that people currently perform separately, from preparing data to producing reports. But I also learned that agents can misunderstand data and make mistakes. They need human guidance to understand the problem, validate assumptions and correct their work.
-
-**And I have the Answer: Let agents drive the workflow. Preserve human judgment. Deliver trusted intelligence.**
+**Let agents run the workflow. Keep human judgment. Deliver trusted intelligence.**
 
 
 
