@@ -23,110 +23,11 @@ This is more than automating a report-writing task. It is **automating the produ
 [**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Rendered, output-only walkthrough showcasing all generated charts, audit checks, and executive narratives.  
 [**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) - First draft report generated end-to-end by the autonomous workflow, providing a structured baseline for human review and refinement.  
 
-**And I have the Answer: Automate the workflow. Preserve human judgment. Deliver trusted intelligence.** 
+**An autonomous workflow does not guarantee that an agent will fully understand the underlying data, interpret its structure correctly, or produce accurate analytical results. Human guidance remains essential to clarify data, validate assumptions, correct reasoning, and steer the agent toward trustworthy intelligence.**
+
+**And I have the Answer: Let agents drive the workflow. Preserve human judgment. Deliver trusted intelligence.** 
 
 
-
-### Two complementary architectural approaches 
-### 1.1 Compute-Then-Communicate
-
-**Deterministic computation first. LLM-generated narrative second.**
-
-This pipeline separates analytical computation from language generation. Python performs the calculations, while a local LLM communicates the resulting insights in a professional, structured narrative. 
-
-**Pipeline flow**
-
-`Trusted Data Foundation → Python Computation → Structured Summary → Local LLM → Narrative Output`
-
-**Stage 1 — Compute (Python)**
-
-Using pandas, scikit-learn, and supporting Python libraries, the pipeline performs:
-
-- Data loading, cleaning, and validation.
-- Aggregations, rankings, and trend analysis.
-- Year-over-year changes and comparisons.
-- Domestic and international segmentation.
-- Clustering and peer-group analysis.
-- Chart generation and structured analytical summaries.
-
-**Stage 2 — Communicate (Local LLM)**
-
-The structured summary is passed to a local language model through Ollama (for example, `llama3.1:latest`).
-
-The LLM generates a professional narrative based on the computed findings. It is instructed to remain grounded in the supplied results rather than inventing figures or unsupported trends.
-
-**Stage 3 — Generate Artifacts**
-
-The pipeline organizes its outputs into reusable analytical and reporting artifacts:
-
-| Output location | Contents |
-|---|---|
-| `{BASE_DIR}/results/` | Charts, structured summaries, narrative text, cleaned datasets, and aggregation tables |
-| `{BASE_DIR}/reports/` | Excel reports with raw data, dimension and fact tables, aggregations, key metrics, and charts |
-
-HTML, PowerPoint reporting can also be generated as an optional extension.
-
-**Data and accuracy boundaries**
-
-- Raw data rows are processed by Python and are not sent to the LLM.
-- The LLM receives structured analytical summaries rather than the underlying dataset.
-- Numerical computation remains in Python, where results can be reproduced and checked.
-- The narrative must be grounded in the supplied analytical results.
-- If the local LLM is unavailable, the pipeline can save a local fallback narrative.
-
-The separation of computation and communication helps keep numerical analysis reproducible while using the LLM for interpretation and presentation. Narrative validation remains an important additional safeguard.
-
-### 1.2 Direct LLM-to-DB (Text-to-SQL)
-
-**Natural-language questions translated into database queries.**
-
-A different approach allows an LLM to translate a user's analytical question into SQL, which is then executed against a database.
-
-`User Question → LLM-generated SQL → Database Execution → Query Results → Narrative Response`
-
-Rather than preparing a fixed set of analytical summaries in advance, this architecture supports more flexible, question-driven analysis.
-
-Its main characteristics include:
-
-- Natural-language access to structured database information.
-- SQL generation based on database schemas and defined relationships.
-- Runtime query execution against approved data sources.
-- Narrative responses based on returned query results.
-
-**Governance and accuracy considerations**
-
-Direct LLM-to-DB introduces different risks from compute-first processing. Generated SQL may contain incorrect joins, unsuitable filters, or expensive queries. Query results may also expose information that should not be available to the model.
-
-A governed implementation should therefore include:
-
-- Read-only database access and approved views.
-- Defined table, column, and query permissions.
-- SQL validation and execution limits.
-- Query execution feedback and controlled retries.
-- Result validation before narrative generation.
-- Human review where the output affects important decisions.
-
-A semantic layer can further constrain queries to governed metrics and approved business definitions instead of exposing unrestricted access to raw tables.
-
-### 1.3 Choosing the Right Architecture
-
-The two approaches address different analytical needs:
-
-| Dimension | Compute-Then-Communicate | Direct LLM-to-DB |
-|---|---|---|
-| Primary purpose | Repeatable analytical reporting | Flexible, ad-hoc questions |
-| Computation | Python and analytical libraries | Database executes generated SQL |
-| Timing | Pre-computed before narrative generation | Computed at query time |
-| LLM input | Structured analytical summaries | Schema and query results, subject to controls |
-| Reproducibility | High for deterministic computations | Depends on query, data state, and execution |
-| Main risk | Missing insights in the prepared summary | Incorrect SQL, joins, or data exposure |
-| Key safeguards | Data validation and narrative cross-checks | Governed access, SQL validation, and result checks |
-
-**Hybrid direction**
-
-These approaches can also be combined. A governed semantic layer can provide approved metrics and database views, while compute-first processing handles recurring analytical reports. Question-driven queries can then support additional exploration where needed.
-
-The architectural choice should follow the analytical requirement, data sensitivity, and level of control required.
 
 ## 2. Autonomous agents and orchestration
 
