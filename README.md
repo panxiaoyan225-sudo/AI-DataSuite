@@ -13,7 +13,7 @@ I wanted to test a different question:
 
 > Can agents carry an entire workflow without human handoffs between tools?
 
-So I built an early self-driving workflow that connects data ingestion, engineering, validation, analytical computation and local LLM-generated narratives to produce a draft intelligence report.
+So I built an self-driving workflow that connects data ingestion, engineering, validation, analytical computation and local LLM-generated narratives to produce a draft intelligence report.
 
 <img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;"> 
 
