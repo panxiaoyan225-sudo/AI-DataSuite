@@ -5,27 +5,29 @@ This repository brings together applied work on **Autonomous Data-to-Narrative E
 The unifying question is not simply how to make an AI model perform a task. It is:
 
 > How should an AI-enabled system be organized so that agents can execute work reliably while authority, oversight, and accountability remain clear?
-
-
-## 1. Autonomous Data-to-Narrative Engine : Agentic • Repeatable • Reusable  
-I am  testing a different question:
-> Can the system carry the entire workflow end-to-end without human handoffs between tools?
-
-So i built a Self-Driving system that can carry an entire workflow from source data to a finished intelligence report.     
-This is more than automating a report-writing task. It is **automating the production of entire analytical intelligence** - connects raw data source, with automated Data Engineering to establish a trusted data foundation, followed by deterministic analytical computation and local LLM-generated narratives.      
-
-
-`Source Data → Data Engineering → Trusted Data → Computation → LLM-Generated Narrative → Draft Report → Human approval → Final Intelligence Report`  
-  
-<img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;">  
-
  
-[**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Rendered, output-only walkthrough showcasing all generated charts, audit checks, and executive narratives.  
-[**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) - First draft report generated end-to-end by the autonomous workflow, providing a structured baseline for human review and refinement.  
 
-**An autonomous workflow does not guarantee that an agent will fully understand the underlying data, interpret its structure correctly, or produce accurate analytical results. Human guidance remains essential to clarify data, validate assumptions, correct reasoning, and steer the agent toward trustworthy intelligence.**
+## 1. Autonomous Data-to-Narrative Engine · Agentic • Repeatable • Reusable
 
-**And I have the Answer: Let agents drive the workflow. Preserve human judgment. Deliver trusted intelligence.** 
+I wanted to test a different question:
+
+> Can agents carry an entire workflow from source data to a finished intelligence report, without human handoffs between tools?
+
+So I built an early self-driving workflow that connects data ingestion, engineering, validation, analytical computation and local LLM-generated narratives to produce a draft intelligence report.
+
+`Source Data → Data Engineering → Trusted Data → Computation → LLM-Generated Narrative → Draft Report → Human Approval → Final Intelligence Report`
+
+<img src="Data-to-Narrative-Pipelines/Data-to-Narrative.png" alt="Autonomous Data-to-Narrative Architecture" style="max-width:100%;height:auto;"> 
+
+[**Output**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Data-to-Narrative_walkthrough.html) — Generated charts, validation checks and analytical narratives.
+
+[**Draft Report**](https://panxiaoyan225-sudo.github.io/AI-DataSuite/Data-to-Narrative-Pipelines/Executive_Expense_Report_2026-11-26.html) — First end-to-end report, ready for human review and refinement.
+
+**Building this system also changed how I see the future of work.**
+
+I realized that if we can make this process reliable enough for real workplace use, agents could take over a substantial part of today's routine knowledge work — connecting tasks that people currently perform separately, from preparing data to producing reports. But I also learned that agents can misunderstand data and make mistakes. They need human guidance to understand the problem, validate assumptions and correct their work.
+
+**And I have the Answer: Let agents drive the workflow. Preserve human judgment. Deliver trusted intelligence.**
 
 
 
