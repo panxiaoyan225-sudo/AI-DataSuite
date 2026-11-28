@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Compute-Then-Communicate_Expense_FullCode</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Compute-Then-Communicate_Expense_ThirdVersion</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7801,16 +7801,23 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Autonomous-Expense-Pipeline---Compute-then-Communicate">Autonomous Expense Pipeline - Compute-then-Communicate<a class="anchor-link" href="#Autonomous-Expense-Pipeline---Compute-then-Communicate">¶</a></h1><p>Run every cell in order (Shift+Enter).</p>
+<h1 id="Autonomous-Expense-Pipeline---Compute-then-Communicate-(Third-Version)">Autonomous Expense Pipeline - Compute-then-Communicate (Third Version)<a class="anchor-link" href="#Autonomous-Expense-Pipeline---Compute-then-Communicate-(Third-Version)">¶</a></h1><p>Run every cell in order (Shift+Enter).</p>
 <ol>
-<li><strong>COMPUTE (pandas + scikit-learn)</strong> - cleaning, aggregations, rankings,
-trends, budget vs actual variance, KMeans clustering. <strong>No raw rows go to the LLM.</strong></li>
-<li><strong>COMMUNICATE</strong> - aggregates-only summary -&gt; local <code>llama3.1:latest</code> via Ollama.</li>
-<li><strong>ARTIFACTS</strong> - charts + narrative under <code>expense_results/</code>.</li>
-<li><strong>EXCEL REPORT</strong> - clean data + dim/fact tabs under <code>expense_reports/</code>.</li>
+<li><strong>COMPUTE (pandas + scikit-learn)</strong> - data quality validation, reconciliation,
+correct aggregations, budget vs actual variance, KMeans clustering.</li>
+<li><strong>COMMUNICATE</strong> - validated structured summary -&gt; local llama3.1:latest via Ollama.</li>
+<li><strong>ARTIFACTS</strong> - charts + narrative under expense_results/.</li>
+<li><strong>EXCEL REPORT</strong> - clean data + dim/fact tabs under expense_reports/.</li>
+<li><strong>HTML REPORT</strong> - executive summary HTML under expense_reports/.</li>
 </ol>
-<h2 id="Prerequisites">Prerequisites<a class="anchor-link" href="#Prerequisites">¶</a></h2><p><code>pandas</code>, <code>numpy</code>, <code>scikit-learn</code>, <code>matplotlib</code>, <code>openpyxl</code>. For LLM:
-<code>ollama serve</code> and <code>ollama pull llama3.1:latest</code>.</p>
+<h2 id="Third-Stage-Refinements">Third-Stage Refinements<a class="anchor-link" href="#Third-Stage-Refinements">¶</a></h2><ul>
+<li>Authoritative YTD Budget calculation (cumulative sum of monthly Approved Budget)</li>
+<li>Snapshot completeness audit before monthly trend calculations</li>
+<li>Common-period snapshot verification (no mixed-date totals)</li>
+<li>Corrected monthly trend with validated MoM baselines</li>
+<li>Strengthened validation gate (blocking errors prevent LLM/report)</li>
+<li>Consistent financial measures across all outputs</li>
+</ul>
 <hr/>
 </div>
 </div>
@@ -7821,11 +7828,11 @@ trends, budget vs actual variance, KMeans clustering. <strong>No raw rows go to 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="0.-Setup">0. Setup<a class="anchor-link" href="#0.-Setup">¶</a></h2><p>Imports, loads config from <code>.env</code>, creates output folders.</p>
+<h2 id="0.-Setup">0. Setup<a class="anchor-link" href="#0.-Setup">¶</a></h2><p>Imports, loads config from .env, creates output folders, sets configurable thresholds.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=99aa57a82636">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -7837,6 +7844,10 @@ trends, budget vs actual variance, KMeans clustering. <strong>No raw rows go to 
   Reports: C:/Python/AI-DataSuite/Data-to-Narrative-Pipelines/expense_reports
   Ollama: http://localhost:11434/api/chat llama3.1:latest
   MySQL: 127.0.0.1 3306 pipeline Expense
+  Overspend threshold: &gt;+ 5.0 %
+  Underspend threshold: &lt; -5.0 %
+  Data grain: Cost Centre + Reporting Month + Expense Category
+  Budget assumption: Approved Budget is a monthly allocation (to be verified)
 </pre>
 </div>
 </div>
@@ -7848,26 +7859,37 @@ trends, budget vs actual variance, KMeans clustering. <strong>No raw rows go to 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="1.-Load-and-Clean-Data">1. Load and Clean Data<a class="anchor-link" href="#1.-Load-and-Clean-Data">¶</a></h2><p>Loads data from MySQL pipeline.Expense table (already clean DECIMAL/DATE types).</p>
+<h2 id="1.-Load-&amp;-Clean-Data">1. Load &amp; Clean Data<a class="anchor-link" href="#1.-Load-&amp;-Clean-Data">¶</a></h2><p>Reads from MySQL pipeline.Expense, establishes data grain, identifies authoritative spending measure.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=9cf99df1d181">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Loaded 98 rows x 32 columns from MySQL
-Date range: Apr-2026 -&gt; Sep-2026
-Business Units: 4
+<pre>Loaded 98 rows x 30 columns from MySQL `pipeline.Expense`
+Reporting months: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+Business Units: 4 | Cost Centres: 12
+Expense Categories: 9 | Funding Types: 3
+
+WARNING: 34 rows have duplicate CC+Category+Account+FundingType across months
+YTD Actual is cumulative - taking latest per unique combination to avoid double-counting
+
+Total rows: 98
+Unique CC+Cat+Account+Funding combinations: 81
+
+Total Expense (sum of ALL rows): $15,076,280.00
+Total Expense (latest per combo): $12,791,480.00
+Difference (double-counted): $2,284,800.00
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>C:\Users\ADMIN\AppData\Local\Temp\ipykernel_19756\3921341798.py:11: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+<pre>C:\Users\ADMIN\AppData\Local\Temp\ipykernel_29496\2188949922.py:26: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
   df = pd.read_sql(query, conn)
 </pre>
 </div>
@@ -7880,48 +7902,241 @@ Business Units: 4
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-Aggregations-and-Rankings">2. Aggregations and Rankings<a class="anchor-link" href="#2.-Aggregations-and-Rankings">¶</a></h2><p>Aggregates spend by Business Unit, Category, Cost Centre, Funding Type.</p>
+<h2 id="2.-Snapshot-Completeness-Audit">2. Snapshot Completeness Audit<a class="anchor-link" href="#2.-Snapshot-Completeness-Audit">¶</a></h2><p>Audits every CC+Category combination for reporting month coverage. Determines whether common-period snapshot is possible.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=85d544917f84">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Business Unit Aggregation:
-       Business Unit  Approved_Budget  YTD_Actual  Full_Year_Forecast  Total_Expense  Budget Variance  Budget Variance %
-  Corporate Services       10343000.0   4506400.0           8628900.0      3962500.0       -5836600.0         -56.430436
-Financial Operations       10404000.0   4238300.0           7801900.0      3453100.0       -6165700.0         -59.262784
- Technology Services        8042000.0   4093180.0           6494420.0      3248500.0       -3948820.0         -49.102462
-  People and Culture        5634000.0   2238400.0           4136900.0      1955800.0       -3395600.0         -60.269791
+<pre>
+Reporting months (10): ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+Distinct CC+Category combinations: 54
+Combinations with records in ALL 10 months: 0
+Combinations with MISSING months: 54
+
+=== COMBINATIONS WITH MISSING MONTHS (first 20) ===
+  CS100 / Capital: 2/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Sep-2026']
+  CS100 / Consulting: 2/10 months, missing: ['Apr-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  CS100 / Operations: 1/10 months, missing: ['Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  CS100 / Salaries: 3/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jul-2026', 'Mar-2026', 'May-2026', 'Oct-2026']
+  CS100 / Technology: 1/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'Oct-2026', 'Sep-2026']
+  CS200 / Capital: 2/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  CS200 / Consulting: 3/10 months, missing: ['Apr-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'Oct-2026', 'Sep-2026']
+  CS200 / Technology: 1/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  CS200 / Training: 1/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Sep-2026']
+  CS200 / Travel: 2/10 months, missing: ['Aug-2026', 'Feb-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  CS300 / Capital: 3/10 months, missing: ['Apr-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'Oct-2026', 'Sep-2026']
+  CS300 / Operations: 1/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Sep-2026']
+  CS300 / Salaries: 3/10 months, missing: ['Aug-2026', 'Feb-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  CS300 / Training: 1/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  CS300 / Travel: 2/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Mar-2026', 'May-2026', 'Oct-2026']
+  FO100 / Capital: 2/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  FO100 / Consulting: 2/10 months, missing: ['Aug-2026', 'Feb-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  FO100 / Operations: 1/10 months, missing: ['Apr-2026', 'Aug-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'Oct-2026', 'Sep-2026']
+  FO100 / Professional services: 1/10 months, missing: ['Apr-2026', 'Feb-2026', 'Jan-2026', 'Jul-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Oct-2026', 'Sep-2026']
+  FO100 / Salaries: 3/10 months, missing: ['Apr-2026', 'Aug-2026', 'Jan-2026', 'Jun-2026', 'Mar-2026', 'May-2026', 'Sep-2026']
+
+=== LATEST MONTH PER COMBINATION ===
+  Jan-2026: 2 combinations
+  Feb-2026: 1 combinations
+  Mar-2026: 4 combinations
+  Apr-2026: 3 combinations
+  May-2026: 6 combinations
+  Jun-2026: 4 combinations
+  Jul-2026: 5 combinations
+  Aug-2026: 10 combinations
+  Sep-2026: 9 combinations
+  Oct-2026: 10 combinations
+
+All combinations share the same latest month: False
+Most common latest month: Aug-2026 (10/54 combinations)
+
+Snapshot audit complete. Common-period possible: False
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="3.-Data-Quality-&amp;-Validation">3. Data Quality &amp; Validation<a class="anchor-link" href="#3.-Data-Quality-&amp;-Validation">¶</a></h2><p>Strengthened validation with blocking checks for incomplete snapshots, unsupported YTD calculations, reconciliation failures, and inconsistent budget definitions.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=c0c31e936945">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Data grain confirmed: Cost Centre + Reporting Month + Expense Category
+
+Using common-period cutoff: Aug-2026
+  Combinations covered: 10/54
+
+Expected categories (9): ['Capital', 'Consultants', 'Consulting', 'Operations', 'Professional services', 'Salaries', 'Technology', 'Training', 'Travel']
+Actual categories (9): ['Capital', 'Consultants', 'Consulting', 'Operations', 'Professional services', 'Salaries', 'Technology', 'Training', 'Travel']
+Missing: []
+
+Category YTD Actual spending:
+Expense Category
+Salaries                 6612900.0
+Capital                  3602900.0
+Consulting               2404100.0
+Technology               1290880.0
+Operations                413300.0
+Travel                    380900.0
+Training                  299200.0
+Professional services      53400.0
+Consultants                18700.0
+
+Latest available snapshot per combination:
+  Records: 54
+  Date range (mixed): Apr-2026 to Sep-2026
+  NOTE: Dates are MIXED across combinations â€” clearly labeled in summary.
+
+Total Expense reconciliation (latest available snapshot, mixed dates):
+  By Cost Centre: $8,778,900.00
+  By Business Unit: $8,778,900.00
+  By Category: $8,778,900.00
+  By Funding Type: $8,778,900.00
+  All dimensions reconcile: True
+
+Zero-budget rows: 0
+
+WARNING: YTD Actual decreases detected in 6 combinations
+  These may represent legitimate adjustments, reversals, or restatements.
+  CS300 / Travel: decreases in ['Sep-2026']
+  FO100 / Salaries: decreases in ['Oct-2026']
+  PC200 / Capital: decreases in ['Oct-2026']
+  PC300 / Consulting: decreases in ['Aug-2026']
+  TS200 / Capital: decreases in ['Sep-2026']
+
+Negative financial values: {'Approved Budget': 0, 'Year-to-Date Actual': 0, 'Full-Year Forecast': 0, 'Salary Expense': 0, 'Consulting Expense': 0, 'Capital Expense': 0}
+
+Zero-budget rows: 0
+
+Cost Centres with varying Full-Year Forecast: 12 / 12
+
+============================================================
+VALIDATION SUMMARY
+============================================================
+Errors: 0
+Warnings: 3
+  WARNING: No common reporting period exists across all 54 CC+Category combinations. Using most common latest month (Aug-2026) as common-period cutoff (10/54 combinations covered).
+  WARNING: YTD Actual decreases detected in 6 CC+Category combinations (may represent adjustments, reversals, or restatements). Decreasing combinations: [('CS300', 'Travel', ['Sep-2026']), ('FO100', 'Salaries', ['Oct-2026']), ('PC200', 'Capital', ['Oct-2026']), ('PC300', 'Consulting', ['Aug-2026']), ('TS200', 'Capital', ['Sep-2026'])]
+  WARNING: 12 Cost Centres have varying Full-Year Forecast values across rows/snapshots
+Validation PASSED: True
+============================================================
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="4.-Authoritative-Budget-Calculation">4. Authoritative Budget Calculation<a class="anchor-link" href="#4.-Authoritative-Budget-Calculation">¶</a></h2><p>YTD Budget = cumulative sum of monthly Approved Budget per CC+Category. All downstream variance measures use this authoritative measure.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=f35d3f47830b">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Budget calculations REMOVED: YTD Budget not calculated.
+Approved Budget preserved as source data only - no financial conclusions drawn.
+  98 rows stored for downstream analysis without budget derivation.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="5.-Aggregations">5. Aggregations<a class="anchor-link" href="#5.-Aggregations">¶</a></h2><p>Aggregates spend by Business Unit, Expense Category, Cost Centre, and Funding Type using authoritative YTD Budget.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=892d54c8d1b0">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>
+Latest-per-combination records: 81 (from 98 total rows)
+Latest Total Expense: $12,791,480.00
+Business Unit Aggregation (expense only):
+       Business Unit  Approved_Budget  YTD_Actual  Total_Expense
+ Technology Services        7680000.0   4059080.0      4059080.0
+  Corporate Services        7848000.0   3780900.0      3780900.0
+Financial Operations        7483000.0   3410900.0      3410900.0
+  People and Culture        3849000.0   1540600.0      1540600.0
 
 Expense Category Aggregation:
-     Expense Category  YTD_Actual  Total_Expense
-             Salaries   6612900.0      6612900.0
-              Capital   3602900.0      3602900.0
-           Consulting   2404100.0      2404100.0
-          Consultants     18700.0            0.0
-           Operations    413300.0            0.0
-Professional services     53400.0            0.0
-           Technology   1290880.0            0.0
-             Training    299200.0            0.0
-               Travel    380900.0            0.0
+     Expense Category  Approved_Budget  YTD_Actual  Total_Expense
+             Salaries       13041000.0   5764200.0      5764200.0
+              Capital        5604000.0   2771700.0      2771700.0
+           Consulting        3940000.0   1936800.0      1936800.0
+           Technology        2310000.0   1252780.0      1252780.0
+           Operations         680000.0    413300.0       413300.0
+             Training         592000.0    299200.0       299200.0
+               Travel         517000.0    281400.0       281400.0
+Professional services          88000.0     53400.0        53400.0
+          Consultants          88000.0     18700.0        18700.0
+
+Spending by Funding Type:
+        Funding Type  Approved_Budget  YTD_Actual  Total_Expense
+           Temporary        9744000.0   4763800.0      4763800.0
+                Core        8943000.0   4086880.0      4086880.0
+Strategic Initiative        8173000.0   3940800.0      3940800.0
 
 Top 10 Cost Centres:
-Cost Centre  Cost Centre Description        Business Unit  Approved_Budget  YTD_Actual  Total_Expense  Budget Variance  Budget Variance %
-      CS100 Facilities and Workplace   Corporate Services        4057000.0   2123100.0      2021900.0       -1933900.0         -47.668228
-      FO100      Financial Reporting Financial Operations        4034000.0   1738800.0      1575700.0       -2295200.0         -56.896381
-      TS300 Cyber and Infrastructure  Technology Services        3102000.0   1953080.0      1463300.0       -1148920.0         -37.038040
-      TS200  Enterprise Applications  Technology Services        3291000.0   1458600.0      1439900.0       -1832400.0         -55.679125
-      CS300       Corporate Planning   Corporate Services        4234000.0   1557400.0      1334900.0       -2676600.0         -63.216816
-      FO200 Planning and Performance Financial Operations        4293000.0   1628500.0      1254900.0       -2664500.0         -62.066154
-      PC300       Workforce Strategy   People and Culture        2317000.0    865000.0       777500.0       -1452000.0         -62.667242
-      PC200 Learning and Development   People and Culture        1993000.0    760800.0       691900.0       -1232200.0         -61.826392
-      FO300    Accounting Operations Financial Operations        2077000.0    871000.0       622500.0       -1206000.0         -58.064516
-      CS200     Procurement Services   Corporate Services        2052000.0    825900.0       605700.0       -1226100.0         -59.751462
+Cost Centre        Business Unit  Approved_Budget  YTD_Actual  Total_Expense
+      CS100   Corporate Services        4057000.0   2123100.0      2123100.0
+      TS300  Technology Services        2740000.0   1918980.0      1918980.0
+      FO100 Financial Operations        3200000.0   1591200.0      1591200.0
+      TS200  Technology Services        3291000.0   1458600.0      1458600.0
+      FO200 Financial Operations        2914000.0   1174300.0      1174300.0
+      CS300   Corporate Services        2615000.0   1089000.0      1089000.0
+      TS100  Technology Services        1649000.0    681500.0       681500.0
+      FO300 Financial Operations        1369000.0    645400.0       645400.0
+      PC100   People and Culture        1230000.0    571700.0       571700.0
+      CS200   Corporate Services        1176000.0    568800.0       568800.0
+
+=== OVERALL TOTALS (latest-per-combination) ===
+  Approved Budget (distinct per combo): $26,860,000.00
+  YTD Actual: $12,791,480.00
+  Full-Year Forecast: $20,905,220.00
+
+=== RECONCILIATION CHECK ===
+  CC Total YTD:    $12,791,480.00
+  BU Total YTD:    $12,791,480.00
+  Cat Total YTD:   $12,791,480.00
+  Fund Total YTD:  $12,791,480.00
+  All match: True
 </pre>
 </div>
 </div>
@@ -7933,29 +8148,19 @@ Cost Centre  Cost Centre Description        Business Unit  Approved_Budget  YTD_
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="3.-Trend-Analysis">3. Trend Analysis<a class="anchor-link" href="#3.-Trend-Analysis">¶</a></h2><p>Month-over-month spending trends.</p>
+<h2 id="6.-Monthly-Trend-Analysis">6. Monthly Trend Analysis<a class="anchor-link" href="#6.-Monthly-Trend-Analysis">¶</a></h2><p>Monthly Expense derived from diff of cumulative YTD Actual. Only if snapshot completeness supports it.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=a463f244b6ae">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Monthly Trend:
-Month Sort Reporting Month  Approved_Budget  YTD_Actual  Total_Expense  MoM Change %
-   2026-01        Jan-2026        4581000.0    381700.0       354600.0           NaN
-   2026-02        Feb-2026        3686000.0    608800.0       511100.0     44.134236
-   2026-03        Mar-2026        2916000.0   1024080.0       584900.0     14.439444
-   2026-04        Apr-2026        3421000.0   1062100.0       983900.0     68.216789
-   2026-05        May-2026        2370000.0    906400.0       612900.0    -37.707084
-   2026-06        Jun-2026        3691000.0   1775000.0      1567400.0    155.735030
-   2026-07        Jul-2026        5316000.0   3002800.0      2831800.0     80.668623
-   2026-08        Aug-2026        3108000.0   2109100.0      1605700.0    -43.297549
-   2026-09        Sep-2026        2503000.0   1832600.0      1589000.0     -1.040045
-   2026-10        Oct-2026        2831000.0   2373700.0      1978600.0     24.518565
+<pre>Monthly trend NOT available - no common reporting period across CC+Category combinations.
+Snapshot completeness audit showed mixed latest months - monthly trend would be misleading.
 </pre>
 </div>
 </div>
@@ -7967,47 +8172,27 @@ Month Sort Reporting Month  Approved_Budget  YTD_Actual  Total_Expense  MoM Chan
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="4.-Budget-vs-Actual-Variance">4. Budget vs Actual Variance<a class="anchor-link" href="#4.-Budget-vs-Actual-Variance">¶</a></h2><p>Compares YTD Actual vs Approved Budget by Business Unit and Funding Type.</p>
+<h2 id="7.-KMeans-Clustering-of-Cost-Centres">7. KMeans Clustering of Cost Centres<a class="anchor-link" href="#7.-KMeans-Clustering-of-Cost-Centres">¶</a></h2><p>Uses corrected Budget Variance from authoritative budget. Exploratory only.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=47f074ac2027">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Budget Variance by Business Unit:
-       Business Unit  Approved_Budget  YTD_Actual  Budget Variance  Budget Variance %     Status
-  Corporate Services       10343000.0   4506400.0       -5836600.0         -56.430436 UNDERSPENT
-Financial Operations       10404000.0   4238300.0       -6165700.0         -59.262784 UNDERSPENT
- Technology Services        8042000.0   4093180.0       -3948820.0         -49.102462 UNDERSPENT
-  People and Culture        5634000.0   2238400.0       -3395600.0         -60.269791 UNDERSPENT
+<pre>Best k = 4 (silhouette score = 0.739)
+NOTE: Clustering is exploratory. Results are not established financial risks.
 
-Budget Variance by Funding Type:
-        Funding Type  Approved_Budget  YTD_Actual  Budget Variance  Budget Variance %     Status
-           Temporary       12905000.0   5523700.0       -7381300.0         -57.197210 UNDERSPENT
-Strategic Initiative        9447000.0   4454500.0       -4992500.0         -52.847465 UNDERSPENT
-                Core       12071000.0   5098080.0       -6972920.0         -57.765885 UNDERSPENT
-
-Top Overspent Cost Centres:
-Empty DataFrame
-Columns: [Cost Centre, Cost Centre Description, Business Unit, Approved_Budget, YTD_Actual, Total_Expense, Budget Variance, Budget Variance %]
-Index: []
-
-Top Underspent Cost Centres:
-Cost Centre  Cost Centre Description        Business Unit  Approved_Budget  YTD_Actual  Total_Expense  Budget Variance  Budget Variance %
-      CS100 Facilities and Workplace   Corporate Services        4057000.0   2123100.0      2021900.0       -1933900.0         -47.668228
-      FO100      Financial Reporting Financial Operations        4034000.0   1738800.0      1575700.0       -2295200.0         -56.896381
-      TS300 Cyber and Infrastructure  Technology Services        3102000.0   1953080.0      1463300.0       -1148920.0         -37.038040
-      TS200  Enterprise Applications  Technology Services        3291000.0   1458600.0      1439900.0       -1832400.0         -55.679125
-      CS300       Corporate Planning   Corporate Services        4234000.0   1557400.0      1334900.0       -2676600.0         -63.216816
-      FO200 Planning and Performance Financial Operations        4293000.0   1628500.0      1254900.0       -2664500.0         -62.066154
-      PC300       Workforce Strategy   People and Culture        2317000.0    865000.0       777500.0       -1452000.0         -62.667242
-      PC200 Learning and Development   People and Culture        1993000.0    760800.0       691900.0       -1232200.0         -61.826392
-      FO300    Accounting Operations Financial Operations        2077000.0    871000.0       622500.0       -1206000.0         -58.064516
-      CS200     Procurement Services   Corporate Services        2052000.0    825900.0       605700.0       -1226100.0         -59.751462
+Cluster Profiles (mean ORIGINAL financial values):
+         Total_Expense  Count
+Cluster                      
+0           1131650.00      2
+1            572716.67      6
+2           2021040.00      2
+3           1524900.00      2
 </pre>
 </div>
 </div>
@@ -8019,186 +8204,132 @@ Cost Centre  Cost Centre Description        Business Unit  Approved_Budget  YTD_
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="5.-KMeans-Clustering-of-Cost-Centres">5. KMeans Clustering of Cost Centres<a class="anchor-link" href="#5.-KMeans-Clustering-of-Cost-Centres">¶</a></h2><p>Clusters cost centres based on expense features. Uses silhouette score to select k.</p>
+<h2 id="8.-Cluster-Visualization-(PCA)">8. Cluster Visualization (PCA)<a class="anchor-link" href="#8.-Cluster-Visualization-(PCA)">¶</a></h2><p>PCA scatter plot, monthly trend chart, and category bar chart.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Best k = 3 (silhouette score = 0.360)
-
-Cluster Profiles:
-         Salary_Expense  Consulting_Expense  Capital_Expense  Total_Expense  Budget Variance  Count
-Cluster                                                                                            
-0              600775.0            394750.0              0.0       995525.0       -1494205.0      4
-1               11575.0            120450.0         434325.0       566350.0       -1157950.0      4
-2             1040875.0             85825.0         466400.0      1593100.0       -2184525.0      4
-
-Cluster Membership:
-
-Cluster 0 (4 cost centres):
-Cost Centre  Cost Centre Description        Business Unit  Total_Expense
-      TS300 Cyber and Infrastructure  Technology Services      1463300.0
-      FO200 Planning and Performance Financial Operations      1254900.0
-      PC300       Workforce Strategy   People and Culture       777500.0
-      PC100          Talent Programs   People and Culture       486400.0
-
-Cluster 1 (4 cost centres):
-Cost Centre  Cost Centre Description        Business Unit  Total_Expense
-      PC200 Learning and Development   People and Culture       691900.0
-      FO300    Accounting Operations Financial Operations       622500.0
-      CS200     Procurement Services   Corporate Services       605700.0
-      TS100           Data Platforms  Technology Services       345300.0
-
-Cluster 2 (4 cost centres):
-Cost Centre  Cost Centre Description        Business Unit  Total_Expense
-      CS100 Facilities and Workplace   Corporate Services      2021900.0
-      FO100      Financial Reporting Financial Operations      1575700.0
-      TS200  Enterprise Applications  Technology Services      1439900.0
-      CS300       Corporate Planning   Corporate Services      1334900.0
-</pre>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput" id="cell-id=c99165b74ea6">
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="6.-Cluster-Visualization-(PCA)">6. Cluster Visualization (PCA)<a class="anchor-link" href="#6.-Cluster-Visualization-(PCA)">¶</a></h2><p>Reduces scaled features to 2D via PCA and saves a cluster scatter plot.</p>
+<h2 id="9.-Structured-Text-Summary">9. Structured Text Summary<a class="anchor-link" href="#9.-Structured-Text-Summary">¶</a></h2><p>Builds a validated structured narrative summary with consistent financial measures.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=8a6529fa82d5">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Cluster plot saved to: C:/Python/AI-DataSuite/Data-to-Narrative-Pipelines/expense_results\chart_expense_clusters.png
-Trend plot saved to: C:/Python/AI-DataSuite/Data-to-Narrative-Pipelines/expense_results\chart_monthly_trend.png
-Category plot saved to: C:/Python/AI-DataSuite/Data-to-Narrative-Pipelines/expense_results\chart_expense_by_category.png
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>C:\Users\ADMIN\AppData\Local\Temp\ipykernel_19756\589230052.py:36: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
-  plt.show()
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="7.-Structured-Text-Summary">7. Structured Text Summary<a class="anchor-link" href="#7.-Structured-Text-Summary">¶</a></h2><p>Builds a structured narrative summary of all insights — aggregates only, ready for the LLM.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>AUTONOMOUS EXPENSE PIPELINE - STRUCTURED SUMMARY
+<pre>AUTONOMOUS EXPENSE PIPELINE - STRUCTURED SUMMARY (Third Version)
 ======================================================================
 
-Data source: MySQL pipeline.Expense table (98 expense records)
-Reporting period: Apr-2026 to Sep-2026
+Data source: MySQL pipeline.Expense (98 expense records)
+Data grain: Cost Centre + Reporting Month + Expense Category
+Snapshot validation: FAILED - mixed reporting months
+Common-period cutoff: Mixed dates (latest available record per combination)
+  Snapshot date range: Apr-2026 to Sep-2026
+  NOTE: Dates are MIXED across Cost Centre + Category combinations.
 Fiscal Year: 2026
 Business Units: 4 | Cost Centres: 12
 Expense Categories: 9 | Funding Types: 3
 
-1. OVERALL SPEND SUMMARY
-  Approved Budget:   $34,423,000
-  YTD Actual:        $15,076,280
-  Full-Year Forecast: $27,062,120
-  Total Expense:     $12,619,900
-  Budget Variance:   $-19,346,720 (-56.2%)
+DEFINITIONS
+- Year-to-Date Actual is CUMULATIVE spending through each reporting month
+- Approved Budget preserved as source data - reporting basis not yet established
+- YTD Budget calculation REMOVED - no budget variance or utilization calculated
+- Budget Variance NOT calculated (YTD Budget unavailable)
+- Budget Utilization % NOT calculated (YTD Budget unavailable)
+- Forecast Variance = Full-Year Forecast - Approved Budget
+
+1. OVERALL SPEND SUMMARY (Latest-Per-Combination)
+  Approved Budget (distinct per combo):   $26,860,000
+  YTD Budget: NOT CALCULATED - reporting basis not established
+  YTD Actual:                             $12,791,480
+  Total Expense:                          $12,791,480
+  Full-Year Forecast:                     $20,905,220
+  YTD Budget Variance: NOT CALCULATED
+  Budget Utilization %: NOT CALCULATED
 
 2. SPEND BY BUSINESS UNIT
-  Corporate Services: Budget $10,343,000 | Actual $4,506,400 | Variance $-5,836,600 (-56.4%)
-  Financial Operations: Budget $10,404,000 | Actual $4,238,300 | Variance $-6,165,700 (-59.3%)
-  Technology Services: Budget $8,042,000 | Actual $4,093,180 | Variance $-3,948,820 (-49.1%)
-  People and Culture: Budget $5,634,000 | Actual $2,238,400 | Variance $-3,395,600 (-60.3%)
+  Technology Services: Approved Budget $7,680,000 | YTD Actual $4,059,080 | Total Expense $4,059,080
+  Corporate Services: Approved Budget $7,848,000 | YTD Actual $3,780,900 | Total Expense $3,780,900
+  Financial Operations: Approved Budget $7,483,000 | YTD Actual $3,410,900 | Total Expense $3,410,900
+  People and Culture: Approved Budget $3,849,000 | YTD Actual $1,540,600 | Total Expense $1,540,600
 
 3. SPEND BY EXPENSE CATEGORY
-  Salaries: $6,612,900
-  Capital: $3,602,900
-  Consulting: $2,404,100
-  Consultants: $0
-  Operations: $0
-  Professional services: $0
-  Technology: $0
-  Training: $0
-  Travel: $0
+  Salaries: Approved Budget $13,041,000 | YTD Actual $5,764,200 | Total Expense $5,764,200
+  Capital: Approved Budget $5,604,000 | YTD Actual $2,771,700 | Total Expense $2,771,700
+  Consulting: Approved Budget $3,940,000 | YTD Actual $1,936,800 | Total Expense $1,936,800
+  Technology: Approved Budget $2,310,000 | YTD Actual $1,252,780 | Total Expense $1,252,780
+  Operations: Approved Budget $680,000 | YTD Actual $413,300 | Total Expense $413,300
+  Training: Approved Budget $592,000 | YTD Actual $299,200 | Total Expense $299,200
+  Travel: Approved Budget $517,000 | YTD Actual $281,400 | Total Expense $281,400
+  Professional services: Approved Budget $88,000 | YTD Actual $53,400 | Total Expense $53,400
+  Consultants: Approved Budget $88,000 | YTD Actual $18,700 | Total Expense $18,700
 
 4. MONTHLY TREND
-  Jan-2026: $354,600 (baseline)
-  Feb-2026: $511,100 (+44.1% MoM)
-  Mar-2026: $584,900 (+14.4% MoM)
-  Apr-2026: $983,900 (+68.2% MoM)
-  May-2026: $612,900 (-37.7% MoM)
-  Jun-2026: $1,567,400 (+155.7% MoM)
-  Jul-2026: $2,831,800 (+80.7% MoM)
-  Aug-2026: $1,605,700 (-43.3% MoM)
-  Sep-2026: $1,589,000 (-1.0% MoM)
-  Oct-2026: $1,978,600 (+24.5% MoM)
+  Monthly trend NOT available - no common reporting period across combinations.
 
-5. BUDGET VARIANCE BY FUNDING TYPE
-  Temporary: Budget $12,905,000 | Actual $5,523,700 | Variance $-7,381,300 (-57.2%) [UNDERSPENT]
-  Strategic Initiative: Budget $9,447,000 | Actual $4,454,500 | Variance $-4,992,500 (-52.8%) [UNDERSPENT]
-  Core: Budget $12,071,000 | Actual $5,098,080 | Variance $-6,972,920 (-57.8%) [UNDERSPENT]
+5. SPEND BY FUNDING TYPE
+  Temporary: Approved Budget $9,744,000 | YTD Actual $4,763,800 | Total Expense $4,763,800
+  Core: Approved Budget $8,943,000 | YTD Actual $4,086,880 | Total Expense $4,086,880
+  Strategic Initiative: Approved Budget $8,173,000 | YTD Actual $3,940,800 | Total Expense $3,940,800
 
 6. TOP 10 COST CENTRES BY EXPENSE
-  CS100 (Corporate Services): $2,021,900 | Variance $-1,933,900 (-47.7%)
-  FO100 (Financial Operations): $1,575,700 | Variance $-2,295,200 (-56.9%)
-  TS300 (Technology Services): $1,463,300 | Variance $-1,148,920 (-37.0%)
-  TS200 (Technology Services): $1,439,900 | Variance $-1,832,400 (-55.7%)
-  CS300 (Corporate Services): $1,334,900 | Variance $-2,676,600 (-63.2%)
-  FO200 (Financial Operations): $1,254,900 | Variance $-2,664,500 (-62.1%)
-  PC300 (People and Culture): $777,500 | Variance $-1,452,000 (-62.7%)
-  PC200 (People and Culture): $691,900 | Variance $-1,232,200 (-61.8%)
-  FO300 (Financial Operations): $622,500 | Variance $-1,206,000 (-58.1%)
-  CS200 (Corporate Services): $605,700 | Variance $-1,226,100 (-59.8%)
+  CS100 (Corporate Services): Total Expense $2,123,100
+  TS300 (Technology Services): Total Expense $1,918,980
+  FO100 (Financial Operations): Total Expense $1,591,200
+  TS200 (Technology Services): Total Expense $1,458,600
+  FO200 (Financial Operations): Total Expense $1,174,300
+  CS300 (Corporate Services): Total Expense $1,089,000
+  TS100 (Technology Services): Total Expense $681,500
+  FO300 (Financial Operations): Total Expense $645,400
+  PC100 (People and Culture): Total Expense $571,700
+  CS200 (Corporate Services): Total Expense $568,800
 
-7. CLUSTER PROFILES
-  Cluster 0: 4 cost centres, avg expense $995,525
-    - TS300 (Technology Services): $1,463,300
-    - FO200 (Financial Operations): $1,254,900
-    - PC300 (People and Culture): $777,500
-    - PC100 (People and Culture): $486,400
-  Cluster 1: 4 cost centres, avg expense $566,350
-    - PC200 (People and Culture): $691,900
-    - FO300 (Financial Operations): $622,500
-    - CS200 (Corporate Services): $605,700
-    - TS100 (Technology Services): $345,300
-  Cluster 2: 4 cost centres, avg expense $1,593,100
-    - CS100 (Corporate Services): $2,021,900
-    - FO100 (Financial Operations): $1,575,700
-    - TS200 (Technology Services): $1,439,900
-    - CS300 (Corporate Services): $1,334,900
+7. CLUSTER PROFILES (EXPLORATORY)
+  Cluster 0: 2 cost centres, avg expense $1,131,650
+    - FO200 (Financial Operations): $1,174,300
+    - CS300 (Corporate Services): $1,089,000
+  Cluster 1: 6 cost centres, avg expense $572,717
+    - TS100 (Technology Services): $681,500
+    - FO300 (Financial Operations): $645,400
+    - PC100 (People and Culture): $571,700
+    - CS200 (Corporate Services): $568,800
+    - PC300 (People and Culture): $516,300
+    - PC200 (People and Culture): $452,600
+  Cluster 2: 2 cost centres, avg expense $2,021,040
+    - CS100 (Corporate Services): $2,123,100
+    - TS300 (Technology Services): $1,918,980
+  Cluster 3: 2 cost centres, avg expense $1,524,900
+    - FO100 (Financial Operations): $1,591,200
+    - TS200 (Technology Services): $1,458,600
 
 8. KEY INSIGHTS
-  - Highest spending Business Unit: Corporate Services ($3,962,500)
-  - Largest Expense Category: Salaries ($6,612,900)
-  - No cost centres significantly over budget (&gt;5%)
-  - Largest MoM increase: Jun-2026 (+155.7%)
+  - Highest spending Business Unit: Technology Services ($4,059,080)
+  - Largest Expense Category: Salaries ($5,764,200)
+  - Budget-related analysis not performed (YTD Budget reporting basis not established)
+  - Monthly trend not available for spike analysis.
+
+9. DATA QUALITY &amp; VALIDATION STATUS
+  - All reconciliation checks PASSED
+  - WARNINGS:
+    - No common reporting period exists across all 54 CC+Category combinations. Using most common latest month (Aug-2026) as common-period cutoff (10/54 combinations covered).
+    - YTD Actual decreases detected in 6 CC+Category combinations (may represent adjustments, reversals, or restatements). Decreasing combinations: [('CS300', 'Travel', ['Sep-2026']), ('FO100', 'Salaries', ['Oct-2026']), ('PC200', 'Capital', ['Oct-2026']), ('PC300', 'Consulting', ['Aug-2026']), ('TS200', 'Capital', ['Sep-2026'])]
+    - 12 Cost Centres have varying Full-Year Forecast values across rows/snapshots
+
+10. ANALYTICAL LIMITATIONS
+  - Approved Budget reporting basis not established - no budget variance or utilization calculated
+  - YTD Actual is cumulative; Monthly Expense derived from month-over-month differences
+  - No common reporting period across all CC+Category combinations
+  - Expense-type columns only cover 3 of 9 categories
+  - Clustering is exploratory and not presented as established financial risk
 
 </pre>
 </div>
@@ -8211,42 +8342,51 @@ Expense Categories: 9 | Funding Types: 3
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="8.-COMMUNICATE---Send-Summary-to-Ollama-LLM">8. COMMUNICATE - Send Summary to Ollama LLM<a class="anchor-link" href="#8.-COMMUNICATE---Send-Summary-to-Ollama-LLM">¶</a></h2><p>Sends the structured summary (aggregates only — no raw rows) to the local Ollama model.</p>
+<h2 id="10.-COMMUNICATE---Send-Summary-to-Ollama-LLM">10. COMMUNICATE - Send Summary to Ollama LLM<a class="anchor-link" href="#10.-COMMUNICATE---Send-Summary-to-Ollama-LLM">¶</a></h2><p>Blocked if validation errors exist. LLM receives only validated structured summary.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=4537eb5c1588">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Calling Ollama (attempt 1/3, timeout=300s)...
+<pre>Ollama is reachable.
+Calling Ollama (attempt 1/3, timeout=300s)...
 Ollama attempt 1 failed: timed out
 Retrying in 5 seconds...
 Calling Ollama (attempt 2/3, timeout=300s)...
 Narrative received from Ollama (llama3.1:latest).
 
-=== NARRATIVE (first 1500 chars) ===
+=== NARRATIVE STATUS: COMPLETE ===
 **Executive Summary**
 
-The Autonomous Expense Pipeline analysis reveals a significant underutilization of approved budgets across all business units and cost centres. The overall spend summary indicates a budget variance of $-19,346,720 (-56.2%), with actual expenses totaling $12,619,900. This report provides a detailed breakdown of spending trends, budget variances, and cost centre observations to inform strategic decision-making.
+The Autonomous Expense Pipeline analysis reveals a mixed picture of spending across various business units, cost centres, and expense categories. Despite some fluctuations, the total YTD Actual spending of $12,791,480 is below the approved budget of $26,860,000. The largest expense category is Salaries, accounting for $5,764,200 of the total spending. Technology Services is the highest-spending business unit, with $4,059,080 in YTD Actual spending.
 
 **Key Insights**
 
-* The highest spending business unit is Corporate Services, with actual expenses totaling $4,506,400.
-* The largest expense category is Salaries, accounting for $6,612,900 of total expenses.
-* No cost centres are significantly over budget (&gt;5%).
-* The largest monthly increase in expenses occurred in June 2026, with a 155.7% month-over-month (MoM) increase.
+* The highest spending Business Unit is Technology Services, with $4,059,080 in YTD Actual spending.
+* The largest Expense Category is Salaries, with $5,764,200 in YTD Actual spending.
+* Budget-related analysis is not performed due to the lack of a reporting basis for YTD Budget.
+* The monthly trend is not available for spike analysis due to the absence of a common reporting period across all combinations.
 
 **Spending Trends**
 
-The monthly trend analysis reveals a significant spike in expenses in June 2026, followed by a decrease in August 2026. The baseline month is January 2026, with expenses totaling $354,600. The MoM increase in June 2026 was the largest observed, indicating a potential one-time expense or a significant change in spending patterns.
+The spending trends indicate that Technology Services and Financial Operations are the top two spenders, with $4,059,080 and $3,410,900 in YTD Actual spending, respectively. The largest expense category is Salaries, accounting for $5,764,200 of the total spending.
 
 **Budget Variance Analysis**
 
-The budget variance analysis reveals a significant underutilization of approved budgets across all funding types. Temporary funding is the most underutilized, with a variance of $-7,381,300 (-57.2%). Strategic Initiative funding is also significantly underutilized, with a variance of $-4,992,500 (-52.
+Due to the lack of a reporting basis for YTD Budget, budget variance and utilization analysis are not performed.
+
+**Cost Centre Observations**
+
+The top 10 cost centres by expense are:
+
+1. CS100 (Corporate Services): $2,123,100
+2. TS300 (Technology Services): $1,918,980
+3. FO10
 
 Full narrative saved to: C:/Python/AI-DataSuite/Data-to-Narrative-Pipelines/expense_results\expense_narrative.txt
 </pre>
@@ -8260,19 +8400,19 @@ Full narrative saved to: C:/Python/AI-DataSuite/Data-to-Narrative-Pipelines/expe
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="9.-EXCEL-REPORT---Save-Deliverables">9. EXCEL REPORT - Save Deliverables<a class="anchor-link" href="#9.-EXCEL-REPORT---Save-Deliverables">¶</a></h2><p>Writes clean data, dimension tables, fact table, cluster assignments,
-and aggregations to a formatted Excel workbook with charts.</p>
+<h2 id="11.-EXCEL-REPORT---Save-Deliverables">11. EXCEL REPORT - Save Deliverables<a class="anchor-link" href="#11.-EXCEL-REPORT---Save-Deliverables">¶</a></h2><p>Writes clean data, dimension tables, fact table, and aggregations to Excel workbook with charts.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=c841e2fa82b4">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Excel report saved to: C:/Python/AI-DataSuite/Data-to-Narrative-Pipelines/expense_reports\Expense_Pipeline_Report.xlsx
+<pre>Fact table rows: 98
+Excel report saved to: C:/Python/AI-DataSuite/Data-to-Narrative-Pipelines/expense_reports\Expense_Pipeline_Report.xlsx
 Sheets: Clean Data, Dim Month, Dim Business Unit, Dim Category,
         Dim Funding Type, Dim Cost Centre, Fact Expense,
         Agg Business Unit, Agg Category, Agg Cost Centre,
@@ -8288,13 +8428,37 @@ Sheets: Clean Data, Dim Month, Dim Business Unit, Dim Category,
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="12.-HTML-Report---Executive-Report">12. HTML Report - Executive Report<a class="anchor-link" href="#12.-HTML-Report---Executive-Report">¶</a></h2><p>Generates Executive_report.html using corrected pipeline outputs.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=f1451ac5ca11">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>WARNING: Chart not found: chart_monthly_trend.png
+Executive HTML report saved to: C:/Python/AI-DataSuite/Data-to-Narrative-Pipelines/expense_reports\Executive_report.html
+Validation status: PASSED
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Pipeline-Complete">Pipeline Complete<a class="anchor-link" href="#Pipeline-Complete">¶</a></h2><p>Artifacts saved:</p>
 <ul>
 <li><code>expense_results/</code> - narrative text + charts</li>
-<li><code>expense_reports/</code> - Excel workbook with dim/fact model</li>
+<li><code>expense_reports/</code> - Excel workbook + Executive HTML report</li>
 </ul>
-<p>All configuration (paths, file names, Ollama URL/model) is loaded from
-<code>C:/Python/AI-DataSuite/.env</code> — no credentials are hardcoded in this notebook.</p>
+<p>All configuration is loaded from <code>C:/Python/AI-DataSuite/.env</code> — no credentials are hardcoded.</p>
 </div>
 </div>
 </div>

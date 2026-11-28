@@ -1,33 +1,55 @@
-**Expense Analysis Report**
-
 **Executive Summary**
 
-The Autonomous Expense Pipeline has reported a total expense of $12,619,900 for the period of Apr-2026 to Sep-2026, which is below the approved budget of $34,423,000. The overall budget variance is -$19,346,720 (-56.2%). The report highlights significant underspending in Temporary and Strategic Initiative funding types, with a variance of -$7,381,300 (-57.2%) and -$4,992,500 (-52.8%), respectively.
+The Autonomous Expense Pipeline analysis reveals a total expense of $12,791,480 as of September 2026, with the majority of spending concentrated in the Technology Services business unit and Salaries expense category. The analysis also highlights a lack of common reporting period across all cost centre and category combinations, resulting in a snapshot validation failure. Furthermore, the Approved Budget reporting basis has not been established, precluding budget variance and utilization calculations.
 
 **Key Insights**
 
-* The highest spending Business Unit is Corporate Services, with a total expense of $3,962,500.
-* The largest Expense Category is Salaries, with a total expense of $6,612,900.
-* No cost centres are significantly over budget (>5%).
-* The largest MoM increase is Jun-2026, with a 155.7% increase.
+* The Technology Services business unit has the highest spending, with $4,059,080 in YTD Actual.
+* The Salaries expense category has the largest spending, with $5,764,200 in YTD Actual.
+* The budget-related analysis is not performed due to the unavailability of YTD Budget.
+* The monthly trend is not available for spike analysis due to the lack of a common reporting period.
 
 **Spending Trends**
 
-The monthly trend analysis reveals a significant increase in spending from Apr-2026 to Sep-2026, with a peak in Jul-2026. The spending pattern is characterized by a high in Jul-2026, followed by a decrease in Aug-2026, and a slight increase in Sep-2026.
+The spending trends indicate that the majority of expense is concentrated in the Technology Services business unit, with a significant portion allocated to Salaries. The Corporate Services and Financial Operations business units also exhibit substantial spending. The expense categories with the highest spending are Salaries, Capital, and Consulting.
 
 **Budget Variance Analysis**
 
-The budget variance analysis reveals that all Business Units are underspending, with the largest variance in Financial Operations (-59.3%). The Temporary and Strategic Initiative funding types are also underspent, with variances of -$7,381,300 (-57.2%) and -$4,992,500 (-52.8%), respectively.
+Due to the unavailability of YTD Budget, budget variance and utilization calculations are not performed. The Approved Budget is preserved as source data, but the reporting basis has not been established.
 
 **Cost Centre Observations**
 
-The top 10 cost centres by expense are dominated by Corporate Services and Financial Operations. The largest variance is observed in CS100 (Corporate Services), with a variance of -$1,933,900 (-47.7%). The cluster profiles reveal that the cost centres are grouped into three clusters, with Cluster 2 having the highest average expense of $1,593,100.
+The top 10 cost centres by expense are:
+
+1. CS100 (Corporate Services): Total Expense $2,123,100
+2. TS300 (Technology Services): Total Expense $1,918,980
+3. FO100 (Financial Operations): Total Expense $1,591,200
+4. TS200 (Technology Services): Total Expense $1,458,600
+5. FO200 (Financial Operations): Total Expense $1,174,300
+6. CS300 (Corporate Services): Total Expense $1,089,000
+7. TS100 (Technology Services): Total Expense $681,500
+8. FO300 (Financial Operations): Total Expense $645,400
+9. PC100 (People and Culture): Total Expense $571,700
+10. CS200 (Corporate Services): Total Expense $568,800
 
 **Recommendations**
 
-Based on the analysis, the following recommendations are made:
+Due to the limitations of the analysis, no specific recommendations are made. However, it is essential to establish a common reporting period and a consistent budget reporting basis to enable accurate budget variance and utilization calculations. Additionally, further investigation is required to understand the reasons behind the YTD Actual decreases detected in six CC+Category combinations.
 
-* Review and adjust the budget for Corporate Services to ensure that it is aligned with the actual spending.
-* Identify the reasons for the significant underspending in Temporary and Strategic Initiative funding types and adjust the budget accordingly.
-* Monitor the spending trend and adjust the budget to ensure that it is aligned with the actual spending.
-* Review the cost centre structure and adjust it to ensure that it is aligned with the business needs.
+**Data Quality & Validation Status**
+
+The analysis highlights several data quality and validation issues, including:
+
+* No common reporting period exists across all 54 CC+Category combinations.
+* YTD Actual decreases detected in six CC+Category combinations.
+* 12 Cost Centres have varying Full-Year Forecast values across rows/snapshots.
+
+**Analytical Limitations**
+
+The analysis is subject to several limitations, including:
+
+* Approved Budget reporting basis not established.
+* YTD Actual is cumulative; Monthly Expense derived from month-over-month differences.
+* No common reporting period across all CC+Category combinations.
+* Expense-type columns only cover 3 of 9 categories.
+* Clustering is exploratory and not presented as established financial risk.
